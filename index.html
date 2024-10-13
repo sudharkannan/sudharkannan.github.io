@@ -20,10 +20,15 @@
 <div class="intro">
     <h1>&nbsp;Sudharshan<br>Kannan</h1>
 </div>
+<div class="blurb">
+    <h1>Hello World!</h1>
+    <p> I am Sudharshan Kannan, a 4th year Engineering Physics student at the University of Brisish Columbia!</p>
+</div>
 
 <script>
     let intro = document.querySelector(".intro");
     let header = document.querySelector("header");
+    let blurb = document.querySelector(".blurb");
 
     window.addEventListener("scroll", function() {
         // Check if the user has scrolled down 10px
@@ -43,6 +48,12 @@
             intro.style.backgroundColor = "rgb(48, 107, 235)";
             intro.style.transform = "translateY(0px)";
             //header.style.opacity = "0";
+        }
+
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100){
+            blurb.style.opacity = "1"; // Set opacity to 1
+        } else {
+            blurb.style.opacity = "0";
         }
     });
 </script>

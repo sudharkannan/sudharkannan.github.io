@@ -52,7 +52,28 @@ nav a:hover {
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 5px;
 }
+.blurb {
+    flex: 1;
+    position: relative;
+    opacity: 0;
+    min-height: 100vh;
+    background-color: rgba(53, 42, 66, 0.799);
+    color: white;
+    padding: 10% 5%; /* Responsive padding */
+    text-align: center;
+    font-family: "Philosopher", sans-serif;
+    font-size: 2vw; /* Responsive font size */
+    font-weight: 700;
+    transition: top 0.5s ease, transform 0.5s ease, background-color 0.5s ease, opacity 0.5s ease;
+    z-index: 4;
+    pointer-events: none;
+    overflow: hidden; /* Prevent text overflow */
+}
 
+.blurb h1 {
+    max-width: 90%; /* Set a maximum width to prevent overflow */
+    margin: 0 auto; /* Center the text */
+}
 .intro {
     flex: 1;
     position: relative;
