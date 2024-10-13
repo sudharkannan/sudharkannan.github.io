@@ -11,6 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Ensure body takes full height */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 header {
@@ -65,8 +66,15 @@ nav a:hover {
     transition: top 0.5s ease, transform 0.5s ease, background-color 0.5s ease, opacity 0.5s ease;
     z-index: 6;
     pointer-events: none;
+    overflow: hidden; /* Prevent text overflow */
 }
 
+.intro h1 {
+    max-width: 90%; /* Set a maximum width to prevent overflow */
+    margin: 0 auto; /* Center the text */
+}
+
+/* Triangle Arrow */
 .intro::after {
     content: "";
     position: absolute;
@@ -92,6 +100,10 @@ nav a:hover {
     .intro {
         padding: 15% 10%; /* Adjust padding */
         font-size: 8vw; /* Increase size slightly for tablets */
+    }
+
+    .intro h1 {
+        max-width: 95%; /* Adjust max width for tablets */
     }
 
     .intro::after {
@@ -121,6 +133,10 @@ nav a:hover {
     .intro {
         padding: 20% 5%; /* More padding for mobile */
         font-size: 10vw; /* Larger font size for better readability */
+    }
+
+    .intro h1 {
+        max-width: 100%; /* Allow full width on mobile */
     }
 
     .intro::after {
