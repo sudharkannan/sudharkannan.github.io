@@ -78,14 +78,14 @@ nav a:hover {
 .intro::after {
     content: "";
     position: absolute;
-    bottom: 10%; /* Responsive bottom position */
+    bottom: 30%; /* Position higher up */
     left: 50%;
     transform: translateX(-50%);
     width: 0;
     height: 0;
     border-left: 50px solid transparent;
     border-right: 50px solid transparent;
-    border-top: 50px solid white;
+    border-top: 50px solid white; /* Color of the triangle */
 }
 
 /* Media Queries for Responsive Design */
@@ -107,7 +107,7 @@ nav a:hover {
     }
 
     .intro::after {
-        bottom: 8%; /* Adjust triangle position */
+        bottom: 10%; /* Adjust triangle position */
     }
 }
 
@@ -140,6 +140,6 @@ nav a:hover {
     }
 
     .intro::after {
-        bottom: 5%; /* Adjust triangle further for mobile */
+        bottom: 5%; /* Adjust triangle position higher on mobile */
     }
 }
