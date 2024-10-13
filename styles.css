@@ -1,62 +1,84 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
-    line-height: 1.6;
-    padding: 20px;
-    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    background-image: url('assets/images/adachi.jpg'); /* Replace with your image path */
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-position: center; /* Centers the background image */
+    background-attachment: fixed; /* Keeps the background fixed */
+    background-repeat: no-repeat; /* Prevents the background from repeating */
+    color: white; /* Sets text color to white for better visibility */
+    display: flex;
+    flex-direction: column;
+    min-height: 110vh; /* Ensures the body takes at least the full height of the viewport */
 }
 
 header {
+    background-color: rgb(48, 107, 235); /* Header background */
+    position: fixed;
+    width: 100%;
+    display: flex; /* Flexbox for header layout */
+    justify-content: space-between; /* Space between title and nav */
+    align-items: center; /* Center content vertically */
+    padding: 10px 20px; /* Add some padding */
+    opacity: 1;
+    color: white;
+    font-family: "Philosopher", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    font-style: normal;
+    transition: opacity 0.5s ease, background-color 0.5s ease;
+    z-index: 5; /* Ensures header is above background */
+}
+
+nav {
+    display: flex; /* Flexbox for nav links */
+    justify-content: flex-end; /* Align nav links to the right */
+    margin-right: 30px;
+    border-radius: 5px;
+}
+
+nav a {
+    color: white; /* Link color */
+    font-size: 30px;
+    text-decoration: none; /* Remove underline from link */
+    padding: 10px 15px; /* Space around the link */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Change background on hover */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.intro {
+    flex: 1;
+    position: relative; /* Relative positioning for sliding effect */
+    opacity: 1;
+    min-height: 100vh;
+    background-color: rgb(48, 107, 235);
+    color: white;
+    padding: 300px;
     text-align: center;
-    margin-bottom: 50px;
+    align-items: center;
+    font-family: "Philosopher", sans-serif;
+    font-size: 60px;
+    font-weight: 700;
+    font-style: normal;
+    transition: top 0.5s ease, transform 0.5s ease, background-color 0.5s ease, opacity 0.5s ease;
+    z-index: 6;
+    pointer-events: none;
 }
-
-header h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
-}
-
-nav ul {
-    list-style-type: none;
-}
-
-nav ul li {
-    display: inline-block;
-    margin: 0 15px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-size: 1.2em;
-}
-
-section {
-    margin: 50px 0;
-}
-
-h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-.project {
-    margin-bottom: 30px;
-}
-
-footer {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #333;
-    color: #fff;
-}
-
-footer a {
-    color: #fff;
-    text-decoration: none;
+/* Add triangle inside the intro block, positioned at the bottom */
+.intro::after {
+    content: "";
+    position: absolute;
+    bottom: 650px; /* Adjust this to position the triangle inside the intro block */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-top: 50px solid white; /* Color of the triangle */
 }

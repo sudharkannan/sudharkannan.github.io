@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudharshan Kannan | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Sudharshan Kannan</h1>
+    </header>
+
+    <!-- Main content area -->
+    <div class="content">
+        <!-- This area is intentionally left empty but has a minimum height -->
+    </div>
+
+    <!-- Dropdown button at top-right with modern rounded hamburger icon -->
+    <div class="dropdown">
+        <button class="dropbtn" id="menuButton">
+            <!-- SVG for rounded rectangle hamburger menu -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80" width="30" height="30" fill="white">
+                <rect x="10" y="10" width="80" height="10" rx="5"></rect>
+                <rect x="10" y="35" width="80" height="10" rx="5"></rect>
+                <rect x="10" y="60" width="80" height="10" rx="5"></rect>
+            </svg>
+        </button>
+        <div class="dropdown-content" id="dropdownMenu">
+            <a href="project1.html">Project 1</a>
+            <a href="project2.html">Project 2</a>
+            <a href="project3.html">Project 3</a>
+        </div>
+    </div>
+    
+    <footer id="contact">
+        <div class="footer-content">
+            <h2>Contact</h2>
+            <p>Email: <a href="mailto:sudharkannan04@gmail.com">sudharkannan04@gmail.com</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for handling the dropdown menu and scrolling -->
+    <script>
+        document.getElementById("menuButton").addEventListener("click", function(event) {
+            event.stopPropagation(); // Prevent click from propagating to the window
+            var dropdownContent = document.getElementById("dropdownMenu");
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            var dropdownContent = document.getElementById("dropdownMenu");
+            if (event.target !== document.getElementById("menuButton") && dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            }
+        };
+
+        // JavaScript for showing the footer on scroll
+        let footer = document.querySelector("footer");
+
+        window.addEventListener("scroll", function() {
+            // Check if the user has scrolled down 100px
+            if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+                footer.style.bottom = "-100px"; // Show the footer
+                footer.style.opacity = "0"; // Set opacity to 1
+            } else {
+                footer.style.bottom = "0"; // Hide the footer
+                footer.style.opacity = "1"; // Set opacity to 0
+            }
+        });
+        
+
+
+    </script>
+</body>
+</html>

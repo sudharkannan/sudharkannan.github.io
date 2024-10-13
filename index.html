@@ -3,37 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name | Portfolio</title>
+    <title>Sudharshan Kannan | Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <header>
-        <h1>Sudharshan Kannan</h1>
-        <nav>
-            <ul>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+    <h1>&nbsp;Sudharshan Kannan</h1>
+    <nav>
+        <a href="your-link-here.html">Projects</a> <!-- Replace 'your-link-here.html' with the actual page you want to link to -->
+        <a href="your-link-here.html">Resume/Links</a> <!-- Replace 'your-link-here.html' with the actual page you want to link to -->
+        <a href="your-link-here.html">About Me</a> <!-- Replace 'your-link-here.html' with the actual page you want to link to -->
+    </nav>
+</header>
+<div class="intro">
+    <h1>&nbsp;Sudharshan<br>Kannan</h1>
+</div>
 
-    <section id="projects">
-        <h2>My Projects</h2>
-        <div class="project">
-            <h3>Title</h3>
-            <p>des</p>
-        </div>
-    </section>
+<script>
+    let intro = document.querySelector(".intro");
+    let header = document.querySelector("header");
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>goated</p>
-    </section>
-
-    <footer id="contact">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:sudharkannan04@gmail.com">sudharkannan04@gmail.com</a></p>
-    </footer>
-</body>
-</html>
+    window.addEventListener("scroll", function() {
+        // Check if the user has scrolled down 10px
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            intro.style.bottom = "0px"; // Show the footer
+            intro.style.opacity = "0"; // Set opacity to 1
+            //header.style.bottom = "0"; // Show the footer
+            header.style.backgroundColor = "rgb(19, 22, 29)" ; // Set opacity to 1
+            intro.style.backgroundColor = "rgb(19, 22, 29)" ;
+            intro.style.transform = "translateY(-100px)";
+            //header.style.opacity = "1";
+        } else {
+            intro.style.bottom = "0"; // Hide the footer
+            intro.style.opacity = "1"; // Set opacity to 0
+            //header.style.bottom = "-100px"; // Show the footer
+            header.style.backgroundColor = "rgb(48, 107, 235)";
+            intro.style.backgroundColor = "rgb(48, 107, 235)";
+            intro.style.transform = "translateY(0px)";
+            //header.style.opacity = "0";
+        }
+    });
+</script>
