@@ -3,82 +3,127 @@ body {
     margin: 0;
     padding: 0;
     background-image: url('assets/images/adachi.jpg'); /* Replace with your image path */
-    background-size: cover; /* Ensures the image covers the entire viewport */
-    background-position: center; /* Centers the background image */
-    background-attachment: fixed; /* Keeps the background fixed */
-    background-repeat: no-repeat; /* Prevents the background from repeating */
-    color: white; /* Sets text color to white for better visibility */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: white;
     display: flex;
     flex-direction: column;
-    min-height: 110vh; /* Ensures the body takes at least the full height of the viewport */
+    min-height: 100vh; /* Ensure body takes full height */
 }
 
 header {
-    background-color: rgb(48, 107, 235); /* Header background */
+    background-color: rgb(48, 107, 235);
     position: fixed;
     width: 100%;
-    display: flex; /* Flexbox for header layout */
-    justify-content: space-between; /* Space between title and nav */
-    align-items: center; /* Center content vertically */
-    padding: 10px 20px; /* Add some padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
     opacity: 1;
     color: white;
     font-family: "Philosopher", sans-serif;
     font-size: 20px;
     font-weight: 700;
-    font-style: normal;
     transition: opacity 0.5s ease, background-color 0.5s ease;
-    z-index: 5; /* Ensures header is above background */
+    z-index: 5;
 }
 
 nav {
-    display: flex; /* Flexbox for nav links */
-    justify-content: flex-end; /* Align nav links to the right */
+    display: flex;
+    justify-content: flex-end;
     margin-right: 30px;
     border-radius: 5px;
 }
 
 nav a {
-    color: white; /* Link color */
+    color: white;
     font-size: 30px;
-    text-decoration: none; /* Remove underline from link */
-    padding: 10px 15px; /* Space around the link */
-    transition: background-color 0.3s; /* Smooth background color transition */
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
 }
 
 nav a:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Change background on hover */
-    border-radius: 5px; /* Rounded corners */
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
 }
 
 .intro {
     flex: 1;
-    position: relative; /* Relative positioning for sliding effect */
+    position: relative;
     opacity: 1;
     min-height: 100vh;
     background-color: rgb(48, 107, 235);
     color: white;
     padding: 300px;
     text-align: center;
-    align-items: center;
     font-family: "Philosopher", sans-serif;
     font-size: 60px;
     font-weight: 700;
-    font-style: normal;
     transition: top 0.5s ease, transform 0.5s ease, background-color 0.5s ease, opacity 0.5s ease;
     z-index: 6;
     pointer-events: none;
 }
-/* Add triangle inside the intro block, positioned at the bottom */
+
 .intro::after {
     content: "";
     position: absolute;
-    bottom: 650px; /* Adjust this to position the triangle inside the intro block */
+    bottom: 650px;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
     height: 0;
     border-left: 50px solid transparent;
     border-right: 50px solid transparent;
-    border-top: 50px solid white; /* Color of the triangle */
+    border-top: 50px solid white;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Adjust for smaller screens like tablets */
+@media (max-width: 768px) {
+    nav a {
+        font-size: 20px; /* Reduce font size */
+        padding: 8px 10px; /* Adjust padding */
+    }
+
+    .intro {
+        padding: 150px;
+        font-size: 40px; /* Reduce heading size */
+    }
+
+    .intro::after {
+        bottom: 500px; /* Adjust triangle position */
+    }
+}
+
+/* Adjust for mobile phones */
+@media (max-width: 480px) {
+    header {
+        flex-direction: column; /* Stack header elements */
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    nav {
+        margin-right: 0;
+        justify-content: center;
+        flex-wrap: wrap; /* Wrap links */
+    }
+
+    nav a {
+        font-size: 18px;
+        padding: 5px 10px;
+    }
+
+    .intro {
+        padding: 100px;
+        font-size: 30px;
+    }
+
+    .intro::after {
+        bottom: 400px; /* Further adjust triangle */
+    }
 }
