@@ -57,10 +57,10 @@ nav a:hover {
     min-height: 100vh;
     background-color: rgb(48, 107, 235);
     color: white;
-    padding: 300px;
+    padding: 10% 5%; /* Responsive padding */
     text-align: center;
     font-family: "Philosopher", sans-serif;
-    font-size: 60px;
+    font-size: 6vw; /* Responsive font size */
     font-weight: 700;
     transition: top 0.5s ease, transform 0.5s ease, background-color 0.5s ease, opacity 0.5s ease;
     z-index: 6;
@@ -70,7 +70,7 @@ nav a:hover {
 .intro::after {
     content: "";
     position: absolute;
-    bottom: 650px;
+    bottom: 10%; /* Responsive bottom position */
     left: 50%;
     transform: translateX(-50%);
     width: 0;
@@ -90,12 +90,12 @@ nav a:hover {
     }
 
     .intro {
-        padding: 150px;
-        font-size: 40px; /* Reduce heading size */
+        padding: 15% 10%; /* Adjust padding */
+        font-size: 8vw; /* Increase size slightly for tablets */
     }
 
     .intro::after {
-        bottom: 500px; /* Adjust triangle position */
+        bottom: 8%; /* Adjust triangle position */
     }
 }
 
@@ -119,11 +119,11 @@ nav a:hover {
     }
 
     .intro {
-        padding: 100px;
-        font-size: 30px;
+        padding: 20% 5%; /* More padding for mobile */
+        font-size: 10vw; /* Larger font size for better readability */
     }
 
     .intro::after {
-        bottom: 400px; /* Further adjust triangle */
+        bottom: 5%; /* Adjust triangle further for mobile */
     }
 }
