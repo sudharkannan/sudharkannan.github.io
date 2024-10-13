@@ -12,8 +12,13 @@ body {
     flex-direction: column;
     min-height: 100vh; /* Ensure body takes full height */
     overflow-x: hidden; /* Prevent horizontal scrolling */
+    background-color: rgb(19, 22, 29); /* Set the background color to black */
+    color: white; /* Text color */
 }
-
+html, body {
+    height: 100%; /* Ensure both html and body cover full height */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
 header {
     background-color: rgb(48, 107, 235);
     position: fixed;
@@ -140,6 +145,6 @@ nav a:hover {
     }
 
     .intro::after {
-        bottom: 5%; /* Adjust triangle position higher on mobile */
+        bottom: 20%; /* Adjust triangle position higher on mobile */
     }
 }
