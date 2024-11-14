@@ -5,16 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudharshan Kannan | Portfolio</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 <header>
     <h1>&nbsp;Sudharshan Kannan</h1>
     <nav>
-        <a href="your-link-here.html">Projects</a> <!-- Replace 'your-link-here.html' with the actual page you want to link to -->
-        <a href="your-link-here.html">Resume/Links</a> <!-- Replace 'your-link-here.html' with the actual page you want to link to -->
-        <a href="your-link-here.html">About Me</a> <!-- Replace 'your-link-here.html' with the actual page you want to link to -->
+        <a href="projects.html">Projects</a> <!-- Replace 'your-link-here.html' with the actual page you want to link to -->
+        <a href="Resume.pdf">Resume</a> <!-- Replace 'your-link-here.html' with the actual page you want to link to -->
+        <a id="about-me-link">About Me</a> <!-- Replace 'your-link-here.html' with the actual page you want to link to -->
     </nav>
 </header>
 <div class="intro">
@@ -25,12 +22,27 @@
 
 </div>
 
-<div class="blurb">
-    <h1>Hello World!</h1>
-    <p> I am Sudharshan Kannan, a 4th year Engineering Physics student at the University of British Columbia!</p>
-</div>
+<section id="about-me">
+    <div class="blurb">
+        <h1>Hello World!</h1>
+        <p> I am Sudharshan Kannan, a 4th year Engineering Physics student at the University of British Columbia!</p>
+    </div>
+</section>
 
 <script>
+    const aboutMeLink = document.getElementById('about-me-link');
+        const aboutMeSection = document.getElementById('about-me');
+
+        // Add click event listener to the About Me link
+        aboutMeLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default anchor link behavior (no page reload)
+            aboutMeSection.scrollIntoView({
+                behavior: 'smooth' // Smooth scroll
+
+            });
+        });
+
+
     let intro = document.querySelector(".intro");
     let header = document.querySelector("header");
     let blurb = document.querySelector(".blurb");
@@ -49,8 +61,8 @@
             intro.style.bottom = "0"; // Hide the footer
             intro.style.opacity = "1"; // Set opacity to 0
             //header.style.bottom = "-100px"; // Show the footer
-            header.style.backgroundColor = "rgb(48, 107, 235)";
-            intro.style.backgroundColor = "rgb(48, 107, 235)";
+            header.style.backgroundColor = "rgb(56, 57, 58)";
+            intro.style.backgroundColor = "rgb(56, 57, 58)";
             intro.style.transform = "translateY(0px)";
             //header.style.opacity = "0";
         }
