@@ -2,12 +2,11 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url('assets/images/adachi.jpg'); /* Replace with your image path */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    color: white;
+    color: rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Ensure body takes full height */
@@ -52,6 +51,48 @@ nav a:hover {
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 5px;
 }
+
+.background-circles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 3; /* Puts the circles behind the main content */
+}
+
+/* Circle style */
+.circle {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: var(--circle-color, rgba(0, 150, 255, 0.3)); /* Use --circle-color with a default color */
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1;
+    animation: float var(--duration) linear infinite;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+/* Hover effect to brighten the color */
+.circle:hover {
+    transform: scale(1.2); /* Slightly enlarges on hover */
+    background-color: var(--circle-hover-color, rgba(0, 150, 255, 0.5)); /* Hover color */
+}
+
+
+/* Ambient floating effect with more expansive keyframes */
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(var(--x1), var(--y1)); }
+    50% { transform: translate(var(--x2), var(--y2)); }
+    75% { transform: translate(var(--x3), var(--y3)); }
+    100% { transform: translate(0, 0); }
+}
+
+
+
 .blurb {
     flex: 1;
     position: relative;
@@ -66,7 +107,7 @@ nav a:hover {
     font-weight: 700;
     transition: top 0.5s ease, transform 0.5s ease, background-color 0.5s ease, opacity 0.5s ease;
     z-index: 4;
-    pointer-events: none;
+    /*pointer-events: none;*/
     overflow: hidden; /* Prevent text overflow */
 }
 
