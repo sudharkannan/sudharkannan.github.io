@@ -202,6 +202,6 @@ html {
         bottom: 30%; /* Adjust triangle position higher on mobile */
     }
     #projects {
-        margin-top: 230px; /* Matches or slightly exceeds the header height */
+        margin-top: 180px; /* Matches or slightly exceeds the header height */
     }
 }
