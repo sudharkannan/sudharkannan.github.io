@@ -98,7 +98,6 @@ html {
 .card {
     display: block; /* Anchor tags are inline by default; make them block-level */
     background-color: rgba(103, 102, 105, 0.799);
-    border: 1px solid #ddd;
     border-radius: 10px;
     width: 300px;
     padding: 20px;
@@ -131,32 +130,12 @@ html {
 }
 
 
-/* Card Description */
-.card p {
-    font-size: 1em;
-    color: #ffffff;
-    margin-bottom: 15px;
+.card img {
+    width: 100%; /* Full width of the card */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px 10px 0 0; /* Round top corners */
+    margin-bottom: 10px; /* Space below the image */
 }
-
-/* Button Inside Card */
-.card .button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1em;
-    text-align: center;
-    transition: background-color 0.3s ease;
-}
-
-/* Button Hover Effect */
-.card .button:hover {
-    background-color: #0056b3;
-}
-
-
 
 /* Media Queries for Responsive Design */
 
