@@ -179,8 +179,8 @@ html {
         bottom: 10%; /* Adjust triangle position */
     }
 
-    .blurb {
-        margin-top: 80px;
+    .blurb p {
+        margin-top: 30px;
     }
 }
 
@@ -216,7 +216,7 @@ html {
         bottom: 30%; /* Adjust triangle position higher on mobile */
     }
 
-    .blurb {
-        margin-top: 500px;
+    .blurb p {
+        margin-top: 200px;
     }
 }
