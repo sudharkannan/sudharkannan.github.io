@@ -178,6 +178,10 @@ html {
     .intro::after {
         bottom: 10%; /* Adjust triangle position */
     }
+
+    .blurb {
+        margin-top: 50px;
+    }
 }
 
 /* Adjust for mobile phones */
@@ -210,5 +214,9 @@ html {
 
     .intro::after {
         bottom: 30%; /* Adjust triangle position higher on mobile */
+    }
+
+    .blurb {
+        margin-top: 100px;
     }
 }
