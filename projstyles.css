@@ -76,6 +76,87 @@ html {
     scroll-behavior: smooth;
 }
 
+#projects {
+    margin-top: 100px; /* Matches or slightly exceeds the header height */
+    text-align: center;
+    padding: 40px;
+    background-color: rgb(19, 22, 29);
+}
+
+
+
+/* Card Container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+/* Individual Card */
+.card {
+    display: block; /* Anchor tags are inline by default; make them block-level */
+    background-color: rgba(103, 102, 105, 0.799);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 300px;
+    padding: 20px;
+    text-decoration: none; /* Remove underline from links */
+    color: white; /* Set text color */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+
+/* Hover Effect for Card Button */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    background-color: rgba(103, 102, 105, 1); /* Slightly darker background on hover */
+}
+
+/* Card Title */
+.card h3 {
+    font-size: 1.5em;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+/* Card Description */
+.card p {
+    font-size: 1em;
+    color: #cccccc;
+    margin-bottom: 0; /* Ensure no extra spacing */
+}
+
+
+/* Card Description */
+.card p {
+    font-size: 1em;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+/* Button Inside Card */
+.card .button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+/* Button Hover Effect */
+.card .button:hover {
+    background-color: #0056b3;
+}
+
+
 
 /* Media Queries for Responsive Design */
 
@@ -97,6 +178,18 @@ html {
 
     .intro::after {
         bottom: 10%; /* Adjust triangle position */
+    }
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 100%; /* Full-width cards on smaller screens */
+        max-width: 400px; /* Limit the max width for readability */
     }
 }
 
