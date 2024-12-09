@@ -140,11 +140,13 @@ html {
     transition: top 0.5s ease, transform 0.5s ease, background-color 0.5s ease, opacity 0.5s ease;
     overflow: hidden;
     z-index: 5;
+    pointer-events: none;
 }
 
 .blurb {
     background-color: rgba(34, 34, 47, 0.799);
     font-size: 2vw; /* Responsive font size */
+    pointer-events: all;
 }
 
 .mepicture {
@@ -194,7 +196,6 @@ html {
     color: white;
     font-size: 6vw; /* Responsive font size */
     z-index: 11;
-    pointer-events: none;
 }
 
 .intro h1 {
