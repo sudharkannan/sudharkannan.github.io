@@ -194,6 +194,7 @@ html {
     color: white;
     font-size: 6vw; /* Responsive font size */
     z-index: 11;
+    pointer-events: none;
 }
 
 .intro h1 {
