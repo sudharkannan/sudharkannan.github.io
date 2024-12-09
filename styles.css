@@ -125,6 +125,7 @@ html {
     margin: 0 auto;
     font-size: 10vw;
     font-weight: 700;
+    pointer-events: none;
 }
 
 
