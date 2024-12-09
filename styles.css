@@ -6,17 +6,16 @@ body {
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    color: rgb(0, 0, 0);
+    color: white;
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Ensure body takes full height */
     overflow-x: hidden; /* Prevent horizontal scrolling */
-    background-color: rgb(19, 22, 29); /* Set the background color to black */
-    color: white; /* Text color */
+    background-color: rgb(19, 22, 29); /* Set the background color */
 }
 
 header {
-    background-color:  rgb(19, 22, 29);
+    background-color: rgb(19, 22, 29);
     position: fixed;
     width: 100%;
     display: flex;
@@ -24,8 +23,6 @@ header {
     align-items: center;
     padding: 10px 20px;
     opacity: 1;
-    color: white;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 20px;
     font-weight: 700;
     transition: opacity 0.5s ease, background-color 0.5s ease;
@@ -34,7 +31,6 @@ header {
 
 header h1 a {
     color: white;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 40px;
     font-weight: 700;
     text-decoration: none;
@@ -69,19 +65,18 @@ nav a:hover {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    z-index: 3; /* Puts the circles behind the main content */
+    z-index: 3;
 }
 
 html {
     scroll-behavior: smooth;
 }
 
-/* Circle style */
 .circle {
     position: absolute;
     width: 50px;
     height: 50px;
-    background-color: var(--circle-color, rgba(0, 150, 255, 0.3)); /* Use --circle-color with a default color */
+    background-color: var(--circle-color, rgba(0, 150, 255, 0.3));
     border-radius: 50%;
     cursor: pointer;
     z-index: 1;
@@ -89,14 +84,11 @@ html {
     transition: transform 0.2s, background-color 0.2s;
 }
 
-/* Hover effect to brighten the color */
 .circle:hover {
-    transform: scale(1.2); /* Slightly enlarges on hover */
-    background-color: var(--circle-hover-color, rgba(0, 150, 255, 0.5)); /* Hover color */
+    transform: scale(1.2);
+    background-color: var(--circle-hover-color, rgba(0, 150, 255, 0.5));
 }
 
-
-/* Ambient floating effect with more expansive keyframes */
 @keyframes float {
     0% { transform: translate(0, 0); }
     25% { transform: translate(var(--x1), var(--y1)); }
@@ -105,46 +97,61 @@ html {
     100% { transform: translate(0, 0); }
 }
 
-
-
-.blurb {
-    flex: 1;
-    position: relative;
-    opacity: 0;
-    min-height: 100vh;
-    background-color: rgba(103, 102, 105, 0.799);
-    color: white;
-    padding: 10% 5%; /* Responsive padding */
+.msg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 2vw; /* Responsive font size */
-    font-weight: 700;
-    transition: top 0.5s ease, transform 0.5s ease, background-color 0.5s ease, opacity 0.5s ease;
-    z-index: 4;
-    /*pointer-events: none;*/
-    overflow: hidden; /* Prevent text overflow */
+    z-index: 14;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.5;
+    width: auto; /* Automatically adjusts the width to fit the text */
+    white-space: nowrap; /* Prevents the text from breaking onto a new line */
 }
 
-.blurb h1 {
-    max-width: 90%; /* Set a maximum width to prevent overflow */
-    margin: 0 auto; /* Center the text */
+.msg.fade-in {
+    opacity: 1;
+    transition: opacity 0.5s ease 0.3s; /* Add delay of 0.5 seconds for fade-in */
 }
-.intro {
+
+.msg.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease; /* No delay for fade-out */
+}
+
+.msg h1 {
+    margin: 0 auto;
+    font-size: 10vw;
+    font-weight: 700;
+}
+
+
+.blurb, .intro {
     flex: 1;
     position: relative;
     opacity: 1;
     min-height: 100vh;
-    background-color: rgb(56, 57, 58);
-    color: white;
-    padding: 10% 5%; /* Responsive padding */
+    padding: 10% 5%;
     text-align: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 6vw; /* Responsive font size */
     font-weight: 700;
     transition: top 0.5s ease, transform 0.5s ease, background-color 0.5s ease, opacity 0.5s ease;
-    z-index: 6;
+    overflow: hidden;
     pointer-events: none;
-    overflow: hidden; /* Prevent text overflow */
+}
+
+.blurb {
+    background-color: rgba(103, 102, 105, 0.799);
+    font-size: 2vw; /* Responsive font size */
+}
+
+.intro {
+    background-color: rgb(56, 57, 58);
+    color: white;
+    font-size: 6vw; /* Responsive font size */
+    z-index: 6;
 }
 
 .intro h1 {
@@ -152,31 +159,26 @@ html {
     margin: 0 auto; /* Center the text */
 }
 
-/* Triangle Arrow */
 .intro::after {
     content: "";
     position: absolute;
-    bottom: 30%; /* Position higher up */
+    bottom: 30%;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
     height: 0;
     border-left: 50px solid transparent;
     border-right: 50px solid transparent;
-    border-top: 50px solid white; /* Color of the triangle */
+    border-top: 50px solid white;
 }
 
 #projects {
-    margin-top: 100px; /* Matches or slightly exceeds the header height */
+    margin-top: 100px;
     text-align: center;
     padding: 40px;
     background-color: rgb(19, 22, 29);
 }
 
-
-
-/* Card Container */
-/* Card Container */
 .card-container {
     display: flex;
     flex-wrap: wrap;
@@ -185,7 +187,6 @@ html {
     padding: 10px;
 }
 
-/* Individual Card */
 .card {
     display: block;
     background-color: rgba(103, 102, 105, 0.799);
@@ -197,96 +198,68 @@ html {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
-    position: relative; /* Ensures pseudo-element is positioned relative to the card */
-    margin-bottom: 20px; /* Prevents overlap with other cards */
+    position: relative;
+    margin-bottom: 20px;
 }
 
-/* Hover Effect for Card */
 .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 12px rgba(56, 7, 119, 0.753);
     background-color: rgba(103, 102, 105, 1);
 }
 
-/* Circle on Bottom Left */
 .card::after {
     content: '';
     position: absolute;
-    bottom: 10px; /* 10px from the bottom */
-    right: 10px; /* 10px from the left */
-    width: 20px; /* Size of the circle */
-    height: 20px; /* Size of the circle */
-    border-radius: 50%; /* Make it a circle */
+    bottom: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
 }
 
-/* Specific Card Circle Colors */
-.card-color-1::after {
-    background-color: rgba(255, 99, 71, 0.3); /* Red circle */
-}
+.card-color-1::after { background-color: rgba(255, 99, 71, 0.3); }
+.card-color-2::after { background-color: rgba(135, 206, 235, 0.3); }
+.card-color-3::after { background-color: rgba(144, 238, 144, 0.3); }
+.card-color-4::after { background-color: rgba(255, 165, 0, 0.3); }
+.card-color-5::after { background-color: rgba(221, 160, 221, 0.3); }
 
-.card-color-2::after {
-    background-color: rgba(135, 206, 235, 0.3); /* Blue circle */
-}
-
-/* Additional card color classes */
-.card-color-3::after {
-    background-color: rgba(144, 238, 144, 0.3); /* Green circle */
-}
-
-.card-color-4::after {
-    background-color: rgba(255, 165, 0, 0.3); /* Yellow circle */
-}
-
-.card-color-5::after {
-    background-color: rgba(221, 160, 221, 0.3); /* Purple circle */
-}
-
-/* Card Title */
 .card h3 {
     font-size: 1.5em;
     color: #ffffff;
     margin-bottom: 10px;
 }
 
-/* Card Description */
 .card p {
     font-size: 1em;
     color: #cccccc;
-    margin-bottom: 0; /* Ensure no extra spacing */
+    margin-bottom: 0;
 }
-
 
 .card img {
-    width: 100%; /* Full width of the card */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 10px 10px 0 0; /* Round top corners */
-    margin-bottom: 10px; /* Space below the image */
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 10px;
 }
 
-/* Media Queries for Responsive Design */
-
-/* Adjust for smaller screens like tablets */
 @media (max-width: 768px) {
     nav a {
-        font-size: 20px; /* Reduce font size */
-        padding: 8px 10px; /* Adjust padding */
+        font-size: 20px;
+        padding: 8px 10px;
     }
 
     .intro {
-        padding: 15% 10%; /* Adjust padding */
-        font-size: 8vw; /* Increase size slightly for tablets */
+        padding: 15% 10%;
+        font-size: 8vw;
     }
 
     .intro h1 {
-        max-width: 95%; /* Adjust max width for tablets */
+        max-width: 95%;
     }
 
     .intro::after {
-        bottom: 10%; /* Adjust triangle position */
-    }
-
-    .blurb h1 {
-        margin-top: 10px;
+        bottom: 10%;
     }
 
     .card-container {
@@ -295,16 +268,15 @@ html {
     }
 
     .card {
-        width: 100%; /* Full-width cards on smaller screens */
-        max-width: 400px; /* Limit the max width for readability */
-        margin-bottom: 30px; /* Increased margin on smaller screens */
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 30px;
     }
 }
 
-/* Adjust for mobile phones */
 @media (max-width: 480px) {
     header {
-        flex-direction: column; /* Stack header elements */
+        flex-direction: column;
         text-align: center;
         padding: 10px 0;
     }
@@ -312,7 +284,7 @@ html {
     nav {
         margin-right: 0;
         justify-content: center;
-        flex-wrap: wrap; /* Wrap links */
+        flex-wrap: wrap;
     }
 
     nav a {
@@ -321,16 +293,16 @@ html {
     }
 
     .intro {
-        padding: 20% 5%; /* More padding for mobile */
-        font-size: 6vw; /* Smaller font size for better readability */
+        padding: 20% 5%;
+        font-size: 6vw;
     }
 
     .intro h1 {
-        max-width: 100%; /* Allow full width on mobile */
+        max-width: 100%;
     }
 
     .intro::after {
-        bottom: 30%; /* Adjust triangle position higher on mobile */
+        bottom: 30%;
     }
 
     .blurb h1 {
@@ -338,6 +310,6 @@ html {
     }
 
     #projects {
-        margin-top: 180px; /* Matches or slightly exceeds the header height */
+        margin-top: 180px;
     }
 }
