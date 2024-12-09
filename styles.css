@@ -26,7 +26,7 @@ header {
     font-size: 20px;
     font-weight: 700;
     transition: opacity 0.5s ease, background-color 0.5s ease;
-    z-index: 5;
+    z-index: 10;
 }
 
 header h1 a {
@@ -139,19 +139,61 @@ html {
     font-weight: 700;
     transition: top 0.5s ease, transform 0.5s ease, background-color 0.5s ease, opacity 0.5s ease;
     overflow: hidden;
-    pointer-events: none;
+    z-index: 5;
 }
 
 .blurb {
-    background-color: rgba(103, 102, 105, 0.799);
+    background-color: rgba(34, 34, 47, 0.799);
     font-size: 2vw; /* Responsive font size */
 }
+
+.mepicture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 6;
+}
+
+.circle-image {
+    width: 40vh; /* Size of the circle */
+    height: 40vh; /* Size of the circle */
+    border-radius: 50%; /* Make the image circular */
+    object-fit: cover; /* Ensures the image covers the circle without distortion */
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Make the button circular */
+    background-color: rgba(34, 34, 47, 0.799); /* Background color */
+    color: white; /* Icon color */
+    font-size: 1.5em; /* Icon size */
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.social-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1); /* Slight scaling on hover */
+}
+
 
 .intro {
     background-color: rgb(56, 57, 58);
     color: white;
     font-size: 6vw; /* Responsive font size */
-    z-index: 6;
+    z-index: 11;
 }
 
 .intro h1 {
