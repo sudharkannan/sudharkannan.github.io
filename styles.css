@@ -109,6 +109,11 @@ html {
     transition: opacity 0.5s ease 0.5;
     width: auto; /* Automatically adjusts the width to fit the text */
     white-space: nowrap; /* Prevents the text from breaking onto a new line */
+    display: flex;
+    align-items: center;
+    flex-direction: column; /* Arrange items vertically */
+    justify-content: center;
+    gap: 50px; /* Space between the image and text */
 }
 
 .msg.fade-in {
@@ -128,6 +133,12 @@ html {
     pointer-events: none;
 }
 
+.msg-image {
+    width: 30vh; /* Adjust the size of the image */
+    height:30vh;
+    object-fit: cover;
+    border-radius: 50%; /* Optional: If you want the image to be circular */
+}
 
 .blurb, .intro {
     flex: 1;
