@@ -37,6 +37,124 @@ header h1 a {
     cursor: pointer;
 }
 
+.title {
+    min-height: 80vh;
+    margin-top: 20vh;
+    margin-left: 10vw;
+    margin-right: 25vw;
+    font-size: 3em;
+    font-weight: 700;
+    position: relative; /* Needed to position the triangle correctly */
+}
+.title h4 {
+    font-size: 0.5em;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+.title h2 {
+    font-size: 0.5em;
+    font-weight: 700;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(120, 93, 200, 255);
+    position: relative; /* Needed for the triangle positioning */
+}
+
+/* Triangle under the title */
+.title h2::after {
+    content: "";
+    position: absolute;
+    left: 50%; /* Center the triangle horizontally */
+    bottom: -50px; /* Adjust to be below the border */
+    transform: translateX(-50%); /* Center the triangle */
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent; /* Create the left side of the triangle */
+    border-right: 50px solid transparent; /* Create the right side of the triangle */
+    border-top: 50px solid rgba(120, 93, 200, 255); /* Create the visible part of the triangle */
+}
+#report {
+    margin-top: 5vh;
+    margin-left: 50px;
+    margin-right: 25vw;
+    color:rgba(120,93,200,255);
+}
+
+#report h1 {
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(120,93,200,255);
+}
+
+#report p {
+    margin-left: 20px;
+    color: #ffffff;
+}
+
+
+
+#table-of-contents {
+    position: fixed; /* Keeps the ToC fixed on the right side */
+    top: 25vh; /* Space from the top of the screen */
+    right: 5vw; /* Space from the right edge of the screen */
+    width: 15vw; /* Set a fixed width */
+    min-height: 45vh;
+    min-width: 200px;
+    background-color:rgba(34, 34, 47, 0.799);
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 19; /* Ensures it stays above other elements */
+    opacity: 1; /* Make it visible by default */
+    visibility: visible; /* Ensure it's visible by default */
+    transition: opacity 0.5s ease, visibility 0.5s ease; /* Add transition for fade-out effect */
+
+}
+
+/* Media query to hide the ToC on small screens */
+@media (max-width: 768px) {
+    #table-of-contents {
+        opacity: 0; /* Fade out */
+        visibility: hidden; /* Hide the ToC when it's faded out */
+    }
+}
+
+.toc-title {
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: rgba(120,93,200,255); /* Green title color */
+    text-align: left;
+    padding-bottom: 5px;
+}
+
+#table-of-contents h2 {
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+#table-of-contents ul {
+    list-style: none;
+    padding: 0;
+    padding-left: 10px;
+    border-left: 1px solid rgba(120,93,200,255);
+}
+
+#table-of-contents ul li {
+    padding-left: 10px;
+    margin: 20px 0;
+    
+}
+
+#table-of-contents ul li a {
+    font-size: 1.5em;
+    font-weight: 700;
+    text-decoration: none;
+    color:rgba(120,93,200,255);
+}
+
+#table-of-contents ul li a:hover {
+    text-decoration: underline;
+}
+
+
 nav {
     display: flex;
     justify-content: flex-end;
@@ -114,6 +232,7 @@ html {
     flex-direction: column; /* Arrange items vertically */
     justify-content: center;
     gap: 30px; /* Space between the image and text */
+    padding-top: 5vh;
 }
 
 .msg.fade-in {
@@ -290,7 +409,7 @@ html {
 .card-color-5::after { background-color: rgba(221, 160, 221, 0.3); }
 
 .card h3 {
-    font-size: 1.5em;
+    font-size: 1.4em;
     color: #ffffff;
     margin-bottom: 10px;
 }
@@ -299,6 +418,7 @@ html {
     font-size: 1em;
     color: #cccccc;
     margin-bottom: 0;
+    margin-right: 20px
 }
 
 .card img {
@@ -307,15 +427,6 @@ html {
     border-radius: 10px 10px 0 0;
     margin-bottom: 10px;
 }
-
-.title {
-    margin-top: 150px;
-}
-
-.report {
-    margin-top: 50px;
-}
-
 
 @media (max-width: 768px) {
     nav a {
