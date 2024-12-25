@@ -54,32 +54,29 @@ header h1 a {
 .card-color-5::after { background-color: rgba(221, 160, 221, 0.3); }
 
 .page1 h1 {
-    box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.3); /* Create the shadow mimicking an outline */
-    border-radius: 15px; /* Round the corners of the "outline" */
-    padding: 10px; /* Add padding to give space between text and "outline" */
+    padding-left: 20px;
+    border-left: 4px solid rgba(255, 99, 71, 0.3);
 }
 
 .page2 h1 {
-    box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.3); ; /* Create the shadow mimicking an outline */
-    border-radius: 15px; /* Round the corners of the "outline" */
-    padding: 10px; /* Add padding to give space between text and "outline" */
-}
-.page3 h1 {
-    box-shadow: 0 0 0 3px  rgba(144, 238, 144, 0.3); /* Create the shadow mimicking an outline */
-    border-radius: 15px; /* Round the corners of the "outline" */
-    padding: 10px; /* Add padding to give space between text and "outline" */
-}
-.page4 h1 {
-    box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.3); /* Create the shadow mimicking an outline */
-    border-radius: 15px; /* Round the corners of the "outline" */
-    padding: 10px; /* Add padding to give space between text and "outline" */
-}
-.page5 h1 {
-    box-shadow: 0 0 0 3px rgba(221, 160, 221, 0.3); /* Create the shadow mimicking an outline */
-    border-radius: 15px; /* Round the corners of the "outline" */
-    padding: 10px; /* Add padding to give space between text and "outline" */
+    padding-left: 20px;
+    border-left: 4px solid rgba(135, 206, 235, 0.3);
 }
 
+.page3 h1 {
+    padding-left: 20px;
+    border-left: 4px solid rgba(144, 238, 144, 0.3);
+}
+
+.page4 h1 {
+    padding-left: 20px;
+    border-left: 4px solid  rgba(255, 165, 0, 0.3);
+}
+
+.page5 h1 {
+    padding-left: 20px;
+    border-left: 4px solid  rgba(221, 160, 221, 0.3);
+}
 
 .title h4 {
     font-size: 0.5em;
