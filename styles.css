@@ -35,6 +35,15 @@ header h1 a {
     font-weight: 700;
     text-decoration: none;
     cursor: pointer;
+    transition: color 0.5s ease;
+}
+
+header h1 a:hover {
+    color: rgba(120,93,200,255);
+}
+
+#about-me {
+    padding-top: 10%;
 }
 
 .title {
@@ -121,6 +130,12 @@ header h1 a {
     color: #ffffff;
 }
 
+#summary {
+    background-color: rgba(120,93,200,0.2);
+    padding: 20px;
+    border-radius: 8px;
+}
+
 
 
 #table-of-contents {
@@ -131,7 +146,7 @@ header h1 a {
     min-height: 45vh;
     min-width: 200px;
     background-color:rgba(34, 34, 47, 0.799);
-    padding: 20px;
+    
     border-radius: 8px;
     z-index: 19; /* Ensures it stays above other elements */
     opacity: 1; /* Make it visible by default */
@@ -155,23 +170,24 @@ header h1 a {
     color: rgba(120,93,200,255); /* Green title color */
     text-align: left;
     padding-bottom: 5px;
+    padding-left: 10px;
 }
 
 #table-of-contents h2 {
-    padding-left: 10px;
+    padding-left: 20px;
     margin-bottom: 10px;
 }
 
 #table-of-contents ul {
     list-style: none;
     padding: 0;
-    padding-left: 10px;
+    padding-left: 20px;
     border-left: 1px solid rgba(120,93,200,255);
 }
 
 #table-of-contents ul li {
     padding-left: 10px;
-    margin: 20px 0;
+    margin: 20px 10px;
     
 }
 
@@ -180,10 +196,13 @@ header h1 a {
     font-weight: 700;
     text-decoration: none;
     color:white;
+    transition: padding 0.5s ease, background-color 0.5s ease;
 }
 
 #table-of-contents ul li a:hover {
-    color: rgba(120,93,200,255);
+    background-color: rgba(120,93,200,0.2);
+    padding: 10px;
+    border-radius: 8px;
 }
 
 
@@ -199,7 +218,7 @@ nav a {
     font-size: 30px;
     text-decoration: none;
     padding: 10px 15px;
-    transition: background-color 0.3s;
+    transition: color 0.5s;
 }
 
 nav a:hover {
