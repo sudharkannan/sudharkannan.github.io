@@ -136,7 +136,9 @@ header h1 a:hover {
     border-radius: 8px;
 }
 
-
+#summary p {
+    font-size: 1.5em;
+}
 
 #table-of-contents {
     position: fixed; /* Keeps the ToC fixed on the right side */
@@ -459,11 +461,17 @@ html {
     border-radius: 50%;
 }
 
-
+.card h2 {
+    font-size: 1em;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
 .card h3 {
+    padding-left: 10px;
     font-size: 1.4em;
     color: #ffffff;
     margin-bottom: 10px;
+    border-left: 2px solid rgba(120,93,200,255);
 }
 
 .card p {
