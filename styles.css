@@ -430,7 +430,7 @@ html {
 
 .card {
     display: block;
-    background-color: rgba(103, 102, 105, 0.799);
+    background-color: rgba(120,93,200,0.2);
     border-radius: 10px;
     width: 300px;
     padding: 20px;
@@ -444,7 +444,7 @@ html {
 
 .card:hover {
     transform: translateY(-10px);
-    background-color: rgba(120, 93, 200, 255);
+    background-color: rgba(120, 93, 200, 0.553);
 }
 
 .card::after {
