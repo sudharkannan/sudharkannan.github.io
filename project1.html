@@ -29,29 +29,75 @@
         <h2 class="toc-title">Contents</h2>
         <ul>
             <li><a href="#section1">Summary</a></li>
-            <li><a href="#section2">Background</a></li>
-            <li><a href="#section3">Methodology</a></li>
-            <li><a href="#section4">Results</a></li>
-            <li><a href="#section5">Conclusion</a></li>
+            <li><a href="#section2">Rules and Setup</a></li>
+            <li><a href="#section3">Technologies</a></li>
+            <li><a href="#section4">Functionality</a></li>
+            <li><ul><a href="#section5">    Driving</a></ul></li>
+            <li><ul><a href="#section6">    Signboards</a></ul></li>
+            <li><ul><a href="#section7">    Obstacles</a></ul></li>
+            <li><a href="#section8">Results</a></li>
         </ul>
     </div>
 
     <div id="report">
         <div id = "summary">
             <h1 id="section1">Summary</h1>
-            <p>I worked in a pair with my partner in order to program  </p>
+            <p>I worked in a pair with my partner in order to program a virtual car to drive through a simulated Gazebo track, 
+                avoiding obstacles and reading signs on the way!</p>
+            <img src="assets/353/driving.gif" alt="Driving Gif" class="rounded-image">
 
         </div>
-        <h1 id="section2">Section 2: Background</h1>
-        <p>Content for the background section...</p>
+        <h1 id="section2">Rules and Setup</h1>
+        <p>We begin with the competition surface:</p> 
+        <img src="assets/353/competitionsurface.png" alt="compsurface" class="rounded-image">
+           
+        <p>The competition consists of two main sections, the beginning "Road" section and the "Grass" section at the end. The sections both contain 
+            various obstacles traveling on pre-set paths that the user must avoid colliding with. Furthermore, both sections also contain a number of signposts
+             which each have one or two words on them.
+            These signposts must be captured using computer vision techniques, read with a neural network, and the words must be submitted as a string to a clue 
+            checker program in order to secure points. Points are awarded for clues reads, and deducted for any navigation errors.
+        </p>
 
-        <h1 id="section3">Section 3: Methodology</h1>
-        <p>Content for the methodology section...</p>
 
-        <h1 id="section4">Section 4: Results</h1>
-        <p>Content for the results section...</p>
+        <h1 id="section3">Technologies</h1>
+        <h2>ROS</h2>
+        <div id="sub">
+            <p>ROS (Robot Operating System) is a tool that provides various libraries and features for developing robotics. ROS is comprised of a system of nodes,
+                which are essentially modules or subprograms that each perform specfic functions, such as reading signboards, getting camera input, and so on.
+                These nodes can communicate with each other thorugh a system called topics. A node can create and connect to a topic, and either publish or recieve
+                to/from that topic. Other nodes can then connect to that same topic, and read or send information themselves.
+            </p>
+            
+            <p>In the context of our competition,
+                our code published our movement commands, timer starting instructions and various other data to different topics which were then read by Gazebo
+                and the competition score tracking nodes, allowing us to move our robot and collect our points.
+            </p>
 
-        <h1 id="section5">Section 5: Conclusion</h1>
+            
+
+            <h2>Gazebo</h2>
+            <p>Content for the methodology section...</p>
+
+            <h2>Pytorch/Keras</h2>
+            <p>Content for the methodology section...</p>
+
+            <h2>CNNS</h2>
+            <p>Content for the methodology section...</p>
+
+        </div>
+
+        <h1 id="section4">Functionality</h1>
+        <div id="sub">
+            <h2 id="section5">Driving</h2>
+            <p>Content for the conclusion section...</p>
+
+            <h2 id="section6">Signboards</h2>
+            <p>Content for the conclusion section...</p>
+
+            <h2 id="section7">Obstacles</h2>
+            <p>Content for the conclusion section...</p>
+        </div>
+        <h1 id="section8">Results</h1>
         <p>Content for the conclusion section...</p>
 
 

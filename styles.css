@@ -118,6 +118,7 @@ header h1 a:hover {
     margin-left: 50px;
     margin-right: 25vw;
     color:rgba(120,93,200,255);
+    line-height: 1.5;
 }
 
 #report h1 {
@@ -125,9 +126,23 @@ header h1 a:hover {
     border-bottom: 2px solid rgba(120,93,200,255);
 }
 
+#report h2 {
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(255,255,255,255);
+    color: rgba(255,255,255,255);
+    margin-left: 5%;
+}
+
 #report p {
     margin-left: 20px;
     color: #ffffff;
+    padding-bottom: 3%;
+}
+
+#sub p {
+    margin-left: 7%;
+    color: #ffffff;
+    padding-bottom: 3%;
 }
 
 #summary {
@@ -140,9 +155,19 @@ header h1 a:hover {
     font-size: 1.5em;
 }
 
+.rounded-image {
+    display: center;
+    border-radius: 15px; /* Adjust the radius as needed */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional for a shadow effect */
+    max-width: 70%; /* Keeps the image responsive */
+    height: auto;
+    margin-left: 15%;
+    margin-top: 3%;
+}
+
 #table-of-contents {
     position: fixed; /* Keeps the ToC fixed on the right side */
-    top: 25vh; /* Space from the top of the screen */
+    top: 20vh; /* Space from the top of the screen */
     right: 5vw; /* Space from the right edge of the screen */
     width: 15vw; /* Set a fixed width */
     min-height: 45vh;
@@ -178,6 +203,7 @@ header h1 a:hover {
 #table-of-contents h2 {
     padding-left: 20px;
     margin-bottom: 10px;
+    max-height: 50vh;
 }
 
 #table-of-contents ul {
@@ -200,15 +226,15 @@ header h1 a:hover {
     border-radius: 8px;
     padding: 10px;
     padding-right: 15px;
-    transition: padding-left 0.5s ease, background-color 0.5s ease;
+    transition: padding-left 0.5s ease, background-color 0.5s ease, color 0.5s ease;
 }
 
 #table-of-contents ul li a:hover {
-    background-color: rgba(120,93,200,0.2);
+    /*background-color: rgba(120,93,200,0.2);*/
+    color: rgba(120,93,200,255);
     padding-left: 15px;
  
 }
-
 
 nav {
     display: flex;
