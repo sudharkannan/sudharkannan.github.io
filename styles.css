@@ -136,15 +136,27 @@ header h1 a:hover {
 #report p {
     margin-left: 20px;
     color: #ffffff;
-    padding-bottom: 3%;
+    padding-bottom: 1%;
+}
+
+#report p a {
+    color: rgba(120,93,200,255);
+    text-decoration: underline;
+
 }
 
 #sub p {
     margin-left: 7%;
     color: #ffffff;
-    padding-bottom: 3%;
+    padding-bottom: 1%;
 }
-
+pre {
+    border-radius: 15px;
+    overflow-x: auto; /* Scroll for long lines */
+    margin-left: 15%;
+    max-width: 50vw;
+    margin-bottom: 1%;
+}
 #summary {
     background-color: rgba(120,93,200,0.2);
     padding: 20px;
@@ -162,7 +174,7 @@ header h1 a:hover {
     max-width: 70%; /* Keeps the image responsive */
     height: auto;
     margin-left: 15%;
-    margin-top: 3%;
+    margin-top: 1%;
 }
 
 #table-of-contents {
@@ -510,7 +522,7 @@ html {
 .card img {
     width: 100%;
     height: auto;
-    border-radius: 10px 10px 0 0;
+    border-radius: 10px;
     margin-bottom: 10px;
 }
 

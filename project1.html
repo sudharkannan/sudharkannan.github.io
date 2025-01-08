@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudharshan Kannan | Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
     
 </head>
 <header>
@@ -73,35 +74,156 @@
                 and the competition score tracking nodes, allowing us to move our robot and collect our points.
             </p>
 
+            <p>
+                Here is our code at the earliest stage of development, as we were figuring out node communication:
+            </p>
+            <pre><code class="language-python">
+#!/usr/bin/env python3 
+
+from __future__ import print_function
+from std_msgs.msg import String
+
+import roslib
+import sys
+import rospy
+import cv2
+from std_msgs.msg import String
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge, CvBridgeError
+from rosgraph_msgs.msg import Clock
+from geometry_msgs.msg import Twist
+import numpy as np
+
+class Signals:
+
+def __init__(self):
+    self.move = rospy.Publisher("/R1/cmd_vel",Twist,queue_size=1)
+    self.score = rospy.Publisher("/score_tracker",String, queue_size=1)
+    self.clock = rospy.Subscriber("/clock",Clock, queue_size=10)
+
+def main(args):
+    comms = Signals()
+    rospy.init_node('node', anonymous=True)
+
+    move = Twist()
+    move.linear.x = 0.5
+
+    rospy.sleep(1)
+    comms.score.publish(str("FANUM,WAGON,0,NA"))
+    comms.move.publish(move)
+    rospy.sleep(5)
+    comms.score.publish(str("FANUM,WAGON,-1,NA"))
+
+    try:
+        rospy.spin()
+    except KeyboardInterrupt:
+        print("Shutting down")
+    cv2.destroyAllWindows()
+
+if __name__=='__main__':
+    main(sys.argv)
+            </code></pre>
             
+            <p>
+                And here is the score tracker GUI. We gain points if the "Predicted" word from our robot matched the "Actual":
+            </p>
+            <img src="assets/353/scoreboard.png" alt="scoreboard" class="rounded-image">
 
             <h2>Gazebo</h2>
-            <p>Content for the methodology section...</p>
+            <p>Gazebo is a powerful tool that allows us to simulate various robots and components in a 3D environment. Our competition is fully
+                simulated in Gazebo, and we communicate with the simulation using ROS nodes and topics via plugins in order to simulate our camera feed, 
+                our robots motion, and more!
+            </p>
+            <img src="assets/353/gazebo.png" alt="gazebo" class="rounded-image">
 
             <h2>Pytorch/Keras</h2>
-            <p>Content for the methodology section...</p>
+            <p>Keras and Pytorch are some of the largest open source libraries for implementing machine learning. In competition,
+                we used Keras as our library to allow us to train and create our neural networks. </p>
 
-            <h2>CNNS</h2>
-            <p>Content for the methodology section...</p>
+            <h2>CNNs</h2>
+            <p>A neural network is a system composed of many different "nodes" that store data. 
+                These nodes are connected together in layers, forming a network composed of data and weights. Data goes into the input layer,
+                is processed through the weight layers, and an output comes out of the output layer. During training, the output of the neural network 
+                is compared to a correct solution, and the weights used in the network are tuned. Here is a good diagram 
+                <a href="https://link.springer.com/article/10.1007/s10462-021-10049-5">this article</a> which 
+                shows this structure: 
+            </p>
+            <img src="assets/353/nn.png" alt="gazebo" class="rounded-image">
+            <p>
+                CNNs (Convolutional Neural Networks) are a type of neural network that are often used in computer vision and
+                identification/classification tasks. These networks uses matrix and tensor multiplication to learn and process data. 
+            </p>
+            <p>
+                First, a tensor is created that stores data. For example, a 3D tensor might be created to store RGB values in an image. This tensor is then 
+                processed using a kernel/filter comprised of a matrix of weights. The dot product of this kernel and tensor is ran through some mathematical
+                activation function which calculates the output of the node. This process is the "Convolutional" part of the CNN, and forms the Convolutional Layer.
+            </p>
+            <img src="assets/353/convolution.png" alt="First step" class="rounded-image">
+            <p>
+                Next, the outputs from the earlier layer are combined with various mathematical techniques to reduce the number of parameters, 
+                simplfying the computation and reducing complexity. This is known as the "Pooling Layer", and is usually done by sending forward the 
+                maximum value or the average value in eadh unit of data.
 
+            </p>
+            <p>
+                Lastly, this data is sent through a fully connected layer of nodes, which handles the final classification and filtering of the data, and produces
+                the final output, usually a set of probabilities. Usually, this layer uses an activation function that ensures that outputs are normalized.
+            </p>    
         </div>
 
         <h1 id="section4">Functionality</h1>
+        <p>
+            Here, I will go over exactly how me and my partner implemented these technologies to bring our robot (named FANUMWAGON) to life using excerpts 
+            from our final report! Before we start with the technical descriptions, I just want to state that this project was one of the most challenging,
+            but most interesting and fun experiences of my life. I am really glad to have worked on this with my excellent partner, and to have learned a ton 
+            about machine learning, computer vision, and Linux.
+        </p>
+        <img src="assets/353/logic.png" alt="First step" class="rounded-image">
         <div id="sub">
             <h2 id="section5">Driving</h2>
             <p>Content for the conclusion section...</p>
 
             <h2 id="section6">Signboards</h2>
             <p>Content for the conclusion section...</p>
+            <p>
+                Here is a snippet of the code used to train our model using the Keras library. The full code is in our 
+                <a href="https://colab.research.google.com/drive/1ZrZXMVHGvRCtD3oxwF5cYXK9YwWTHgJ2?usp=sharing">python notebook.</a>
+            </p>
+            <pre><code class="language-python">
+# defining the model
+conv_model = models.Sequential()
+conv_model.add(layers.Conv2D(32,(3,3),activation='relu', input_shape=(100, 39, 1)))
+conv_model.add(layers.MaxPooling2D((2,2)))
+conv_model.add(layers.Conv2D(64,(3,3), activation='relu'))
+conv_model.add(layers.MaxPooling2D((2,2)))
+conv_model.add(layers.Conv2D(128,(3,3), activation='relu'))
+conv_model.add(layers.MaxPooling2D((2,2)))
+conv_model.add(layers.Conv2D(128,(3,3), activation='relu'))
+conv_model.add(layers.Flatten())
+conv_model.add(layers.Dropout(0.5))
+conv_model.add(layers.Dense(512, activation='relu'))
+conv_model.add(layers.Dense(36, activation='softmax'))
+
+# use categorical cross entropy function for multiple classes
+LEARNING_RATE = 1e-4
+conv_model.compile(loss='categorical_crossentropy', optimizer=optimizers.RMSprop(learning_rate=LEARNING_RATE),metrics=['acc'])
+reset_weights(conv_model)
+# training the model
+history_conv = conv_model.fit(np.array(Xdata), np.array(Ydata),validation_split=0.2, epochs=80, batch_size=16)
+conv_model.summary()
+                            </code></pre>
 
             <h2 id="section7">Obstacles</h2>
             <p>Content for the conclusion section...</p>
         </div>
         <h1 id="section8">Results</h1>
-        <p>Content for the conclusion section...</p>
+        <p>need to fill this out :3</p>
+        <p>Thank you to Emily Xue for being a great partner on this project!</p>
 
 
 
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </body>
 </html>
