@@ -23,7 +23,7 @@
             <h1>Simulated Driving Detective (2024)</h1>
         </div>
         <h4><em><b> An autonomous simulated car that drives, avoids obstacles, and reads signs.</b></em></h4>
-        <h2>Machine Learning - Linux - Python - Convolutional Neural Networks</h2>
+        <h2>Machine Learning - Computer Vision - Linux - Python - Convolutional Neural Networks</h2>
     </div>
 
     <div id="table-of-contents">
@@ -35,8 +35,9 @@
             <li><a href="#section4">Functionality</a></li>
             <li><ul><a href="#section5">    Driving</a></ul></li>
             <li><ul><a href="#section6">    Signboards</a></ul></li>
-            <li><ul><a href="#section7">    Obstacles</a></ul></li>
-            <li><a href="#section8">Results</a></li>
+            <li><ul><a href="#section7">    CNN</a></ul></li>
+            <li><ul><a href="#section8">    Obstacles</a></ul></li>
+            <li><a href="#section9">Results</a></li>
         </ul>
     </div>
 
@@ -56,7 +57,7 @@
             various obstacles traveling on pre-set paths that the user must avoid colliding with. Furthermore, both sections also contain a number of signposts
              which each have one or two words on them.
             These signposts must be captured using computer vision techniques, read with a neural network, and the words must be submitted as a string to a clue 
-            checker program in order to secure points. Points are awarded for clues reads, and deducted for any navigation errors.
+            checker program in order to secure points. Points are awarded for clues read, and deducted for any navigation errors.
         </p>
 
 
@@ -65,7 +66,7 @@
         <div id="sub">
             <p>ROS (Robot Operating System) is a tool that provides various libraries and features for developing robotics. ROS is comprised of a system of nodes,
                 which are essentially modules or subprograms that each perform specfic functions, such as reading signboards, getting camera input, and so on.
-                These nodes can communicate with each other thorugh a system called topics. A node can create and connect to a topic, and either publish or recieve
+                These nodes can communicate with each other through a system called topics. A node can create and connect to a topic, and either publish or recieve
                 to/from that topic. Other nodes can then connect to that same topic, and read or send information themselves.
             </p>
             
@@ -136,6 +137,12 @@ if __name__=='__main__':
             </p>
             <img src="assets/353/gazebo.png" alt="gazebo" class="rounded-image">
 
+            <h2>CV2</h2>
+            <p>
+                CV2 is a python library designed for use in computer vision and image processing! This module was used in order to process
+                the images captured by our simulated camera so that it can be run through our CNNs to be identified accurately.
+            </p>
+
             <h2>Pytorch/Keras</h2>
             <p>Keras and Pytorch are some of the largest open source libraries for implementing machine learning. In competition,
                 we used Keras as our library to allow us to train and create our neural networks. </p>
@@ -144,14 +151,14 @@ if __name__=='__main__':
             <p>A neural network is a system composed of many different "nodes" that store data. 
                 These nodes are connected together in layers, forming a network composed of data and weights. Data goes into the input layer,
                 is processed through the weight layers, and an output comes out of the output layer. During training, the output of the neural network 
-                is compared to a correct solution, and the weights used in the network are tuned. Here is a good diagram 
+                is compared to a correct solution, and the weights used in the network are tuned. Here is a good diagram from
                 <a href="https://link.springer.com/article/10.1007/s10462-021-10049-5">this article</a> which 
                 shows this structure: 
             </p>
             <img src="assets/353/nn.png" alt="gazebo" class="rounded-image">
             <p>
                 CNNs (Convolutional Neural Networks) are a type of neural network that are often used in computer vision and
-                identification/classification tasks. These networks uses matrix and tensor multiplication to learn and process data. 
+                identification/classification tasks. These networks use matrix and tensor multiplication to learn and process data. 
             </p>
             <p>
                 First, a tensor is created that stores data. For example, a 3D tensor might be created to store RGB values in an image. This tensor is then 
@@ -162,7 +169,7 @@ if __name__=='__main__':
             <p>
                 Next, the outputs from the earlier layer are combined with various mathematical techniques to reduce the number of parameters, 
                 simplfying the computation and reducing complexity. This is known as the "Pooling Layer", and is usually done by sending forward the 
-                maximum value or the average value in eadh unit of data.
+                maximum value or the average value in each unit of data.
 
             </p>
             <p>
@@ -178,13 +185,129 @@ if __name__=='__main__':
             but most interesting and fun experiences of my life. I am really glad to have worked on this with my excellent partner, and to have learned a ton 
             about machine learning, computer vision, and Linux.
         </p>
-        <img src="assets/353/logic.png" alt="First step" class="rounded-image">
+        <img src="assets/353/logic.png" alt="Overall Logic" class="rounded-image">
         <div id="sub">
             <h2 id="section5">Driving</h2>
-            <p>Content for the conclusion section...</p>
-
+            <p>A driving system using proportional error feedback, or PID, was implemented, giving us stronger correction the farther off the road we were.
+                HSV thresholds were used to apply image masks and isolate road lines, through which different move instructions were published to a 
+                cmd_vel topic based on detection cases and calculated error. This topic was read by our Gazebo simulation, and allowed us to send our movement 
+                commands. 
+                Road thresholds and logic were split between the initial pavement section and grass sections.
+             </p>
+             <img src="assets/353/hsvroad.png" alt="Changing Pixels" class="rounded-image">
+             <p>
+                Camera feed was filtered for white lines residing in the bottom 65% of the screen 
+                (to avoid upcoming turns from affecting centre calculations) with contour area greater than 5000
+                 (to insure we were picking up the lines and not any noise). 
+                The remaining contours were reduced to the x-coordinate of their centre of mass (CMx), 
+                which was then stored in a list for centre of road calculation.  
+                To find the centre of the road, we divide the CMxs into 2 groups: ones which fell on the left side of the screen vs. the right. 
+                Averaging the CMxs on each side first before taking an overall average of the left and right CMx, we get the calculated centre of the road.
+                We can then find the difference between the centre of the road and the centre of the screen to find how far off our robot is. 
+             </p>
+             <img src="assets/353/pavementdriving.png" alt="Pavement Logic" class="rounded-image">
+             <p>
+                This driving logic worked for the pavement, but would often fail in the grassy sections due to the noise and difficulty 
+                getting clear colour thresholds for masking. A different system is implemented here,
+                 where we retrieve the middle Y coordinate of every contour and assign it either (+) for left-side or (-) 
+                 for right side. We append these coordinates to a list and based on the sign of the resulting sum, gain insight 
+                 into which side has lower contours (lower = higher values = dominating sign). If a side has a lower contour, 
+                 we interpret it to be seeing “less” and turn towards the side to adjust. This naturally leads the robot to ‘latch’ 
+                 onto a single line and focus on clearer readings.
+             </p>
+             <img src="assets/353/grassdriving.png" alt="Grass Logic" class="rounded-image">
             <h2 id="section6">Signboards</h2>
-            <p>Content for the conclusion section...</p>
+            <p>To detect the clueboards as a whole, we were able to filter for the blue of the clueboard and find its contours. 
+                However, there are often multiple contours for this colour that are present that come from other boards in frame, 
+                the letters on the board, and so on. To solve this problem, we set a variable bigC to be the first contour in the array of contours produced. 
+                We can then iterate through this array, setting bigC to the current contour if its area is greater than bigC‘s current contour area. 
+                By doing this, we end up with bigC being equal to the largest contour on screen, which should be the signboard closest to the vehicle.
+            </p>
+            <p>
+                From this point, we can use the function cv2.approxPolyDP() in order to receive a polygonal approximation of the contour. 
+                From this polygon, we extract the vertices.  The clueboard is rectangular, so we are only interested in this polygonal approximation 
+                if it has 4 vertices, and if the vertices are a certain distance apart from each other, ensuring that we are close to the board and 
+                can get a clear view. If these conditions are met, we can proceed to sort the vertices, ensuring that they are in a consistent order. 
+                This is done by finding the average x and y coordinates of the vertices, essentially finding their centroid. From here, we know that 
+                the top right vertex will be the vertex which has an x coordinate > centroid and y coordinate < centroid, and so on. Once we have our
+                 vertices sorted, we can use cv2.getPerspectiveTransform() and cv2.warpPerspective() to generate our clueboard.
+            </p>
+            <img src="assets/353/extractedclueboard.png" alt="Clueboard" class="rounded-image">
+            <p>
+                To extract the letters from the clueboard, we first perform some processing on the clueboard image itself.
+                We are only interested in the clue itself, so we can crop the image into a thin strip that only contains the clue.
+                 We can then sharpen the image by using a technique known as unsharp masking. 
+                 This involves using cv2.GaussianBlur() to blur a grayscale version of our clueboard image, and then using the cv2.addWeighted() 
+                 function as well as the cv2.threshold() function to output a new, sharper binary image. 
+                 We can then use this binary image to draw the contours of the letters.
+            </p>
+            <img src="assets/353/clueboards.png" alt="Clueboards" class="rounded-image">
+            <p>
+                Once we have the contours, getting the individual letters can be done fairly easily. 
+                First, we can use cv2.boundingRect() to get the bounding box of each letter. 
+                We can then sort the list of contours by the x-coordinate of the top left point of their bounding box. 
+                This ensures that our letters will be in order from left to right. 
+                After that, we can simply crop the image based on the coordinates of the bounding box, giving us a letter.
+            </p>
+            <img src="assets/353/D.png" alt="Letter" class="rounded-image">
+            <p>
+                These letters will then be ran through our CNN.
+            </p>
+            <h2 id="section7">CNN</h2>
+            <p>
+                To generate data, we used a plate.generator.py script located in the competition repo in order to generate sample clueboards. 
+                The same base plate and font was used to generate fake clueboards, each with a single character, 
+                varied via datagen=ImageDataGenerator(rotation_range=0, zoom_range=0.001, brightness_range=[0.4, 0.5]) 
+                and encoded via oneHot vectors that are stored pairwise to the image matrices. 
+                A random blur of range (8,12) was applied via cv2.blur and the image was spliced to contain only the letter. 
+                cv2.GaussianBlur(img,(0,0),3) is applied alongside the standard processing described in Letter Extraction to get the 
+                appropriate contours in the spliced image. 
+                This is then repeated 50 times per character (letters + digits [0,9]) to get an even distribution of varied training data.
+            </p>
+            <img src="assets/353/cnntraining.png" alt="CNN Training" class="rounded-image">
+            <p>
+                Once the CNN has been trained we have our model summary, training graphs, and confusion matrix as follows:
+            </p>
+            <pre>
+
+                                                Model: "sequential"
+                        _________________________________________________________________
+                        Layer (type)                Output Shape              Param #   
+                        =================================================================
+                        conv2d (Conv2D)             (None, 98, 37, 32)        320       
+                                                                                        
+                        max_pooling2d (MaxPooling2D  (None, 49, 18, 32)       0         
+                        )                                                               
+                                                                                        
+                        conv2d_1 (Conv2D)           (None, 47, 16, 64)        18496     
+                                                                                        
+                        max_pooling2d_1 (MaxPooling  (None, 23, 8, 64)        0         
+                        2D)                                                             
+                                                                                        
+                        conv2d_2 (Conv2D)           (None, 21, 6, 128)        73856     
+                                                                                        
+                        max_pooling2d_2 (MaxPooling  (None, 10, 3, 128)       0         
+                        2D)                                                             
+                                                                                        
+                        conv2d_3 (Conv2D)           (None, 8, 1, 128)         147584    
+                                                                                        
+                        flatten (Flatten)           (None, 1024)              0         
+                                                                                        
+                        dropout (Dropout)           (None, 1024)              0         
+                                                                                        
+                        dense (Dense)               (None, 512)               524800    
+                                                                                        
+                        dense_1 (Dense)             (None, 36)                18468     
+                                                                                        
+                        =================================================================
+                        Total params: 783,524
+                        Trainable params: 783,524
+                        Non-trainable params: 0
+                        _________________________________________________________________
+
+            </pre>
+            <img src="assets/353/loss graphs.png" alt="CNN Training" class="rounded-image">
+            <img src="assets/353/confusionmatrix.png" alt="CNN Training" class="rounded-image">
             <p>
                 Here is a snippet of the code used to train our model using the Keras library. The full code is in our 
                 <a href="https://colab.research.google.com/drive/1ZrZXMVHGvRCtD3oxwF5cYXK9YwWTHgJ2?usp=sharing">python notebook.</a>
@@ -213,15 +336,76 @@ history_conv = conv_model.fit(np.array(Xdata), np.array(Ydata),validation_split=
 conv_model.summary()
                             </code></pre>
 
-            <h2 id="section7">Obstacles</h2>
-            <p>Content for the conclusion section...</p>
+                            <p>
+                                The saved model was loaded into the same python script as the other implementations and would predict a letter every time an extracted 
+                                clueboard image was fed. These guesses would continue to update until the clueboard was no longer seen, after which, 
+                                the final guess was published to the score_tracker topic.
+                            </p>
+            <h2 id="section8">Obstacles</h2>
+            <p>Obstacle detection was handled by looking for movement. 
+                After stopping the robot at a point of interest, we are able to compare the current frame of the camera with the previous 
+                frame using subtraction. By subtracting the current frame from the previous frame (using the cv2.absdiff() function),
+                the pixels that have not changed will be black, while the pixels that have changed will keep some colour.</p>
+                <img src="assets/353/obstacle.png" alt="Changing Pixels" class="rounded-image">
+            
+                <p>
+                    We can then apply a binary mask to this image, 
+                    giving us a fully black and white result. 
+                    From the binary image, we can convert the image into a numPy array using the np.toArr() function, 
+                    which makes it very easy to count the number of white pixels through the use of the np.count_nonzero() function. 
+                    When we find a count above a certain number of pixels, we can be confident that the motion is caused by the closest object, 
+                    and not by noise or an object that is further away (such as the truck in the earlier image).
+                </p>
+                <img src="assets/353/binaryobstacle.png" alt="Changing Pixels" class="rounded-image">
+                <p>
+                    We know the the first obstacle we will interact with is the pedestrian. The crosswalk with the pedestrian is marked by a bright red line.
+                     We were able to filter for that line and find its contours,
+                      allowing us to track its position. When the contour reaches some size threshold, 
+                      we can recognize that we are very close to the crosswalk, allowing us to stop the robot and run our motion detection code.
+                </p>
+                <p>We chose our pixel threshold to be 2000, as this value is higher than the pixel count created by the motion of the truck in the background, 
+                    while still being low enough for the pedestrian motion to consistently reach.
+                     We can start our car’s motion as soon as pedestrian motion is detected, 
+                     as the pedestrian moves fast enough that we do not run into it.
+                      Lastly, we use a boolean as a condition to stop at the crosswalk, 
+                      which is flipped after detection is complete. 
+                      This ensures that we only check the code for the crosswalk once, without repeating it on the other side of the crossing.
+                </p>
+                <p>
+                    The truck lacks a line identifier on the road, so we instead stop the vehicle a short amount of time after seeing the
+                     third clueboard in order to run motion detection. 
+                     This is essentially the same as the pedestrian code, however there was room for an optimization; 
+                     since the truck is constantly moving, there will always be white pixels that follow the truck,
+                      meaning there is no uncertainty about its current location. 
+                      This allows us to either go when the truck passes close by (its pixel count > 1400), 
+                      OR when the truck is very far, (pixel count < 60) in order to safely make it through.
+                </p>
+                <p>Lastly, we have Baby Yoda. Unfortunately, we had run out of time at this point to fully drive through Yoda's area, 
+                    and thus did not create a way to deal with him. However, it would essentially work the same way as the truck, albeit with 
+                    a smaller threshold.</p>
         </div>
-        <h1 id="section8">Results</h1>
-        <p>need to fill this out :3</p>
+        <h1 id="section9">Results</h1>
+        <p>Overall, we managed to achieve 40 points in the competition as a whole, 
+            which was an impressive result and ranked us within the top 3 robots at competition. 
+            Our robot performed its parts consistently and accurately.
+             However, due to time constraints, we needed our robot to use the teleport option to skip exiting the roundabout and baby yoda, 
+             which led to losing points. While our robot performed well, we were left a little frustrated that we weren’t able to give our robot the tools 
+             to get full points in time for the competition. However, we were still ultimately pleased with our robot's performance, 
+             and happy with the knowledge and experience we received from working on the project.
+        </p>
+        <p>
+            To improve our robot further, we would want to finish developing and tuning our PID to drive out of the roundabout,
+             as well as implement mountain driving and tracking Yoda. 
+             These were some very interesting topics that we really wanted to do, but ran out of time.
+        </p>
+        <p>
+            Improvements to make in our work were to spend less time tuning before building out all the components we needed. 
+            We spent too long developing tunnel vision on components we had, such as PID, and trying to optimize them, that we ended 
+            up losing track of the components that still needed to be developed. 
+            We need to be more cautious of falling into these kinds of traps, and instead focus on making sure all components 
+            are present and functioning before we try to optimize.
+        </p>
         <p>Thank you to Emily Xue for being a great partner on this project!</p>
-
-
-
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
