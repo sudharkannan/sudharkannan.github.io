@@ -22,7 +22,7 @@
         <div class = "page1">
             <h1>Simulated Driving Detective (2024)</h1>
         </div>
-        <h4><em><b> An autonomous simulated car that drives, avoids obstacles, and reads signs.</b></em></h4>
+        <h4><em><b> An autonomous simulated car that drives, avoids obstacles, and reads signs</b></em></h4>
         <h2>Machine Learning - Computer Vision - Linux - Python - Convolutional Neural Networks</h2>
     </div>
 
@@ -45,13 +45,17 @@
         <div id = "summary">
             <h1 id="section1">Summary</h1>
             <p>I worked in a pair with my partner in order to program a virtual car to drive through a simulated Gazebo track, 
-                avoiding obstacles and reading signs on the way!</p>
-            <img src="assets/353/driving.gif" alt="Driving Gif" class="rounded-image">
+                avoiding obstacles and reading signs on the way! The car was simulated in Gazebo using ROS nodes, and signboard reading was done through use
+            of the CV2 library for image processing and a Convolutional Neural Network created using Keras for identification of words.</p>
+            <div class = "images">
+                <img src="assets/353/driving.gif" alt="Driving Gif" class="rounded-image">
+            </div>
 
         </div>
         <h1 id="section2">Rules and Setup</h1>
         <p>We begin with the competition surface:</p> 
-        <img src="assets/353/competitionsurface.png" alt="compsurface" class="rounded-image">
+        <div class = "images">
+            <img src="assets/353/competitionsurface.png" alt="compsurface" class="rounded-image"></div>
            
         <p>The competition consists of two main sections, the beginning "Road" section and the "Grass" section at the end. The sections both contain 
             various obstacles traveling on pre-set paths that the user must avoid colliding with. Furthermore, both sections also contain a number of signposts
@@ -128,14 +132,16 @@ if __name__=='__main__':
             <p>
                 And here is the score tracker GUI. We gain points if the "Predicted" word from our robot matched the "Actual":
             </p>
-            <img src="assets/353/scoreboard.png" alt="scoreboard" class="rounded-image">
+            <div class = "images">
+                <img src="assets/353/scoreboard.png" alt="scoreboard" class="rounded-image"></div>
 
             <h2>Gazebo</h2>
             <p>Gazebo is a powerful tool that allows us to simulate various robots and components in a 3D environment. Our competition is fully
                 simulated in Gazebo, and we communicate with the simulation using ROS nodes and topics via plugins in order to simulate our camera feed, 
                 our robots motion, and more!
             </p>
-            <img src="assets/353/gazebo.png" alt="gazebo" class="rounded-image">
+            <div class = "images">
+                <img src="assets/353/gazebo.png" alt="gazebo" class="rounded-image"></div>
 
             <h2>CV2</h2>
             <p>
@@ -155,7 +161,8 @@ if __name__=='__main__':
                 <a href="https://link.springer.com/article/10.1007/s10462-021-10049-5">this article</a> which 
                 shows this structure: 
             </p>
-            <img src="assets/353/nn.png" alt="gazebo" class="rounded-image">
+            <div class = "images">
+                <img src="assets/353/nn.png" alt="gazebo" class="rounded-image"></div>
             <p>
                 CNNs (Convolutional Neural Networks) are a type of neural network that are often used in computer vision and
                 identification/classification tasks. These networks use matrix and tensor multiplication to learn and process data. 
@@ -165,7 +172,8 @@ if __name__=='__main__':
                 processed using a kernel/filter comprised of a matrix of weights. The dot product of this kernel and tensor is ran through some mathematical
                 activation function which calculates the output of the node. This process is the "Convolutional" part of the CNN, and forms the Convolutional Layer.
             </p>
-            <img src="assets/353/convolution.png" alt="First step" class="rounded-image">
+            <div class = "images">
+                <img src="assets/353/convolution.png" alt="First step" class="rounded-image"></div>
             <p>
                 Next, the outputs from the earlier layer are combined with various mathematical techniques to reduce the number of parameters, 
                 simplfying the computation and reducing complexity. This is known as the "Pooling Layer", and is usually done by sending forward the 
@@ -185,7 +193,8 @@ if __name__=='__main__':
             but most interesting and fun experiences of my life. I am really glad to have worked on this with my excellent partner, and to have learned a ton 
             about machine learning, computer vision, and Linux.
         </p>
-        <img src="assets/353/logic.png" alt="Overall Logic" class="rounded-image">
+        <div class = "images">
+            <img src="assets/353/logic.png" alt="Overall Logic" class="rounded-image"></div>
         <div id="sub">
             <h2 id="section5">Driving</h2>
             <p>A driving system using proportional error feedback, or PID, was implemented, giving us stronger correction the farther off the road we were.
@@ -194,7 +203,8 @@ if __name__=='__main__':
                 commands. 
                 Road thresholds and logic were split between the initial pavement section and grass sections.
              </p>
-             <img src="assets/353/hsvroad.png" alt="Changing Pixels" class="rounded-image">
+             <div class = "images">
+                <img src="assets/353/hsvroad.png" alt="Changing Pixels" class="rounded-image"></div>
              <p>
                 Camera feed was filtered for white lines residing in the bottom 65% of the screen 
                 (to avoid upcoming turns from affecting centre calculations) with contour area greater than 5000
@@ -205,7 +215,8 @@ if __name__=='__main__':
                 Averaging the CMxs on each side first before taking an overall average of the left and right CMx, we get the calculated centre of the road.
                 We can then find the difference between the centre of the road and the centre of the screen to find how far off our robot is. 
              </p>
-             <img src="assets/353/pavementdriving.png" alt="Pavement Logic" class="rounded-image">
+             <div class = "images">
+                <img src="assets/353/pavementdriving.png" alt="Pavement Logic" class="rounded-image"></div>
              <p>
                 This driving logic worked for the pavement, but would often fail in the grassy sections due to the noise and difficulty 
                 getting clear colour thresholds for masking. A different system is implemented here,
@@ -215,7 +226,8 @@ if __name__=='__main__':
                  we interpret it to be seeing “less” and turn towards the side to adjust. This naturally leads the robot to ‘latch’ 
                  onto a single line and focus on clearer readings.
              </p>
-             <img src="assets/353/grassdriving.png" alt="Grass Logic" class="rounded-image">
+             <div class = "images">
+                <img src="assets/353/grassdriving.png" alt="Grass Logic" class="rounded-image"></div>
             <h2 id="section6">Signboards</h2>
             <p>To detect the clueboards as a whole, we were able to filter for the blue of the clueboard and find its contours. 
                 However, there are often multiple contours for this colour that are present that come from other boards in frame, 
@@ -232,7 +244,8 @@ if __name__=='__main__':
                 the top right vertex will be the vertex which has an x coordinate > centroid and y coordinate < centroid, and so on. Once we have our
                  vertices sorted, we can use cv2.getPerspectiveTransform() and cv2.warpPerspective() to generate our clueboard.
             </p>
-            <img src="assets/353/extractedclueboard.png" alt="Clueboard" class="rounded-image">
+            <div class = "images">
+                <img src="assets/353/extractedclueboard.png" alt="Clueboard" class="rounded-image"></div>
             <p>
                 To extract the letters from the clueboard, we first perform some processing on the clueboard image itself.
                 We are only interested in the clue itself, so we can crop the image into a thin strip that only contains the clue.
@@ -241,7 +254,8 @@ if __name__=='__main__':
                  function as well as the cv2.threshold() function to output a new, sharper binary image. 
                  We can then use this binary image to draw the contours of the letters.
             </p>
-            <img src="assets/353/clueboards.png" alt="Clueboards" class="rounded-image">
+            <div class = "images">
+                <img src="assets/353/clueboards.png" alt="Clueboards" class="rounded-image"></div>
             <p>
                 Once we have the contours, getting the individual letters can be done fairly easily. 
                 First, we can use cv2.boundingRect() to get the bounding box of each letter. 
@@ -249,7 +263,8 @@ if __name__=='__main__':
                 This ensures that our letters will be in order from left to right. 
                 After that, we can simply crop the image based on the coordinates of the bounding box, giving us a letter.
             </p>
-            <img src="assets/353/D.png" alt="Letter" class="rounded-image">
+            <div class = "images">
+                <img src="assets/353/D.png" alt="Letter" class="rounded-image"></div>
             <p>
                 These letters will then be ran through our CNN.
             </p>
@@ -264,7 +279,8 @@ if __name__=='__main__':
                 appropriate contours in the spliced image. 
                 This is then repeated 50 times per character (letters + digits [0,9]) to get an even distribution of varied training data.
             </p>
-            <img src="assets/353/cnntraining.png" alt="CNN Training" class="rounded-image">
+            <div class = "images">
+                <img src="assets/353/cnntraining.png" alt="CNN Training" class="rounded-image"></div>
             <p>
                 Once the CNN has been trained we have our model summary, training graphs, and confusion matrix as follows:
             </p>
@@ -306,8 +322,9 @@ if __name__=='__main__':
                         _________________________________________________________________
 
             </pre>
-            <img src="assets/353/loss graphs.png" alt="CNN Training" class="rounded-image">
-            <img src="assets/353/confusionmatrix.png" alt="CNN Training" class="rounded-image">
+            <div class = "images">
+                <img src="assets/353/loss graphs.png" alt="CNN Training" class="rounded-image">
+                <img src="assets/353/confusionmatrix.png" alt="CNN Training" class="rounded-image"> </div>
             <p>
                 Here is a snippet of the code used to train our model using the Keras library. The full code is in our 
                 <a href="https://colab.research.google.com/drive/1ZrZXMVHGvRCtD3oxwF5cYXK9YwWTHgJ2?usp=sharing">python notebook.</a>
@@ -346,7 +363,8 @@ conv_model.summary()
                 After stopping the robot at a point of interest, we are able to compare the current frame of the camera with the previous 
                 frame using subtraction. By subtracting the current frame from the previous frame (using the cv2.absdiff() function),
                 the pixels that have not changed will be black, while the pixels that have changed will keep some colour.</p>
-                <img src="assets/353/obstacle.png" alt="Changing Pixels" class="rounded-image">
+                <div class = "images">
+                    <img src="assets/353/obstacle.png" alt="Changing Pixels" class="rounded-image"></div>
             
                 <p>
                     We can then apply a binary mask to this image, 
@@ -356,7 +374,8 @@ conv_model.summary()
                     When we find a count above a certain number of pixels, we can be confident that the motion is caused by the closest object, 
                     and not by noise or an object that is further away (such as the truck in the earlier image).
                 </p>
-                <img src="assets/353/binaryobstacle.png" alt="Changing Pixels" class="rounded-image">
+                <div class = "images">
+                    <img src="assets/353/binaryobstacle.png" alt="Changing Pixels" class="rounded-image"></div>
                 <p>
                     We know the the first obstacle we will interact with is the pedestrian. The crosswalk with the pedestrian is marked by a bright red line.
                      We were able to filter for that line and find its contours,

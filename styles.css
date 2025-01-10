@@ -170,13 +170,18 @@ pre {
     font-size: 1.5em;
 }
 
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centers the images horizontally */
+    gap: 10px; /* Adds space between images */
+    max-width: 100%;
+  }
 .rounded-image {
-    display: center;
     border-radius: 15px; /* Adjust the radius as needed */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional for a shadow effect */
     max-width: 70%; /* Keeps the image responsive */
     height: auto;
-    margin-left: 15%;
     margin-top: 1%;
 }
 
@@ -204,7 +209,10 @@ pre {
         visibility: hidden; /* Hide the ToC when it's faded out */
     }
 }
-
+video {
+    max-width: 100%;
+    height: auto;
+}
 .toc-title {
     font-size: 2em;
     font-weight: 700;
