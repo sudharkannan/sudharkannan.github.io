@@ -18,39 +18,90 @@
 <body>
     <div class = "title">
         <div class = "page3">
-            <h1>Website</h1>
+            <h1>Portfolio (2024-Now)</h1>
         </div>
-        <h4><em><b> desc</b></em></h4>
-        <h2>skills</h2>
+        <h4><em><b>This very portfolio, made fully from scratch using HTML and CSS</b></em></h4>
+        <h2>HTML - CSS - JS - Github Pages</h2>
     </div>
 
     <div id="table-of-contents">
         <h2 class="toc-title">Contents</h2>
         <ul>
             <li><a href="#section1">Summary</a></li>
-            <li><a href="#section2">Background</a></li>
-            <li><a href="#section3">Methodology</a></li>
-            <li><a href="#section4">Results</a></li>
-            <li><a href="#section5">Conclusion</a></li>
+            <li><a href="#section2">Features</a></li>
+            <li><ul><a href="#section3">    Scroll Items</a></ul></li>
+            <li><ul><a href="#section4">    Balls</a></ul></li>
+            <li><ul><a href="#section5">    Project Cards</a></ul></li>
+            <li><ul><a href="#section6">    TOC</a></ul></li>
+            <li><a href="#section7">Goals</a></li>
         </ul>
     </div>
 
     <div id="report">
         <div id = "summary">
             <h1 id="section1">Summary</h1>
-            <p>Content for the introduction section...</p>
+            <p>I created this portfolio from scratch using HTML, CSS, and Javascript! This project allowed me to explore the fundamentals of front-end 
+                web design, while simulaneously allowing me to create a great platform to show my skills and interests!
+                <div class = "images">
+                    <img src="assets/Portfolio/home.png" alt="Home Page" class="rounded-image">
+                </div>
+            </p>
         </div>
-        <h1 id="section2">Section 2: Background</h1>
-        <p>Content for the background section...</p>
+        <h1 id="section2">Features</h1>
+        <p>Beyond just creating a basic portfolio, I wanted to experiment with various features beyond simple text,
+            as I wanted to getting a deeper undersatnd of how HTML and CSS interact, as well as gain appreciation for some of the cool things that can be done!
+            Much of my learning in HTML and CSS came from Khan Academy and vaarious online resources, as well as ChatGPT to help understand some possible
+            methods in implementing desired effects. I found that a lot of experimentation was required for certain effects, as 
+            (at least in my free version experience) ChatGPT was not very reliable for more than a general overview of the code structure. This problem solving
+            and debugging 
+            ended up being a great way to learn! Furthermore, I chose to use pure HTML and CSS over any frameworks such as Astro or TailwindCSS, 
+            as I really wanted a deep undersatnding of the fundamental code that is being run. 
+        </p>
+        <div id="sub">
+            <h2 id="section3">Scroll Items</h2>
+            <p>The first feature I wanted to implement was having items that appeared and vanished when the user scrolled, as
+                I wanted to add interactivity and a sense of motion and smooth flow to my page. I accomplished this, as well as most things on this portfolio,
+                 using JS and CSS! A JS script implements an EventListener that detects how far the user has scrolled from the top of the page, 
+                 and once it hits a certain breakpoint, it changes the CSS opacity properties of the layer, which is also animated in CSS!
+                  This lets the layer smoothly fade in and out, hiding and revealing the page underneath.
+            </p>
 
-        <h1 id="section3">Section 3: Methodology</h1>
-        <p>Content for the methodology section...</p>
+            <h2 id="section4">Balls</h2>
+            <p>I also wanted to add something that moved on my page, to make my page more dynamic and visually interesting.
+                 I wanted this to be connected to my projects as wel, giving it an actual meaning beyond just something pretty.
+                That is when I settled on the idea of having balls in the background, with each colour being connected to a project. 
+                Not only does this look nice, it also serves as a visual representation of my work; the more projects I have, more balls and colours will appear!
+                Making them clickable was an extra touch, adding more interactivity, and further showing how the balls are directly connected to my projects.
+            </p>
+            <p>
+                This was done through another JS script, changing the circles position CSS properties randomly.
+            </p>
 
-        <h1 id="section4">Section 4: Results</h1>
-        <p>Content for the results section...</p>
+            <h2 id="section5">Project Cards</h2>
+            <p>On the projects page, I wanted to create cards to give a nice summary for my project, giving a brief overview for a user. Furthermore
+                I wanted to show how each project was represented by a colour on the card, once again hammering home the connection between the balls and my projects.
+                This was done through CSS properties, using effects such as ::after to format all elements on the card, as well as ::hover to create motion when the 
+                user hovered over the card.
+            </p>
 
-        <h1 id="section5">Section 5: Conclusion</h1>
-        <p>Content for the conclusion section...</p>
+            <h2 id="section6">TOC</h2>
+            <p>Lastly, on the each project page, I wanted to implement a Table Of Contents in order to give the viewer an easy way to see all the content in the page,
+                as well as allowing them to jump to specific pages. This was relatively easy! I learned about "anchors" in HTML, linking to a specific part of the page.
+            </p>
+        </div>
+
+        <h1 id="section7">Goals</h1>
+        <p>I am very pleased with the portfolio! However, there are still some things that I would like to improve. A lot of my code, 
+            as you may expect from a project focused on learning, is unoptimal. I would to go back in and optimize it further!
+        There are also some aspects of my code which are difficult to maintain; for example, adding a new project requires me to add a colour value at a number of 
+        different points in my code. Streamlining this would be a very nice quality of life change, and make it easier to maintain.</p>
+
+        <p>
+            Overall, I am very pleased with what I've learned while working on this portfolio and I am committed to keeping this up-to-date in the future.
+            Thank you so much for visiting!
+        </p>
+
+
 
 
 
