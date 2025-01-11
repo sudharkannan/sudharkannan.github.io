@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudharshan Kannan | Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
     
 </head>
 <header>
@@ -18,42 +19,631 @@
 <body>
     <div class = "title">
         <div class = "page5">
-            <h1>OpenGL</h1>
+            <h1>OpenGL (2024 - WIP)</h1>
         </div>
-        <h4><em><b> desc</b></em></h4>
-        <h2>skills</h2>
+        <h4><em><b> A project that documents my progress learning OpenGL!</b></em></h4>
+        <h2>C++ - OpenGL - Graphics Programming</h2>
     </div>
 
     <div id="table-of-contents">
         <h2 class="toc-title">Contents</h2>
         <ul>
             <li><a href="#section1">Summary</a></li>
-            <li><a href="#section2">Background</a></li>
-            <li><a href="#section3">Methodology</a></li>
-            <li><a href="#section4">Results</a></li>
-            <li><a href="#section5">Conclusion</a></li>
+            <li><a href="#section2">Technology</a></li>
+            <li><ul><a href="#section3">    OpenGL</a></ul></li>
+            <li><ul><a href="#section4">    GLFW</a></ul></li>
+            <li><ul><a href="#section5">    GLAD</a></ul></li>
+            <li><a href="#section6">Getting Started</a></li>
         </ul>
     </div>
 
     <div id="report">
         <div id = "summary">
             <h1 id="section1">Summary</h1>
-            <p>Content for the introduction section...</p>
+            <p>I am working through the "Learn OpenGL" text by Joey de Vries in order to gain an understand for the fundamentals of graphics programming!
+                The end result will be a simple 2D game of breakout, but the skills gained throuh this project will likely allow me to
+                create and understands more graphics-related projects in the future! (Despite the WIP nature, this might be one of the longest pages 
+                on the portfolio already!)
+            </p>
+            <div class = "images">
+                <img src="assets/OpenGL/triangle.png" alt="Triangle" class="rounded-image">
+            </div>
         </div>
-        <h1 id="section2">Section 2: Background</h1>
-        <p>Content for the background section...</p>
 
-        <h1 id="section3">Section 3: Methodology</h1>
-        <p>Content for the methodology section...</p>
+        <h1 id="section2">Technology</h1>
+            <div id="sub">
+                <h2 id="section3">OpenGL</h2>
+                <p>OpenGL is a graphics specification that allows developers to use various functions to manipulate graphics, essentially serving as a graphics API.
+                    Since the OpenGL is just a specification, the actual implementation of these functions is dependant on the manufacturer and developers that 
+                    are creating the graphics card. However, provided all functions fit the specification, this should not make a difference to the end user.
+                </p>
 
-        <h1 id="section4">Section 4: Results</h1>
-        <p>Content for the results section...</p>
+                <p>
+                    A very general overview on OpenGL workflow is as follows:
+                </p>
+                <p>
+                    1. An object is created that stores data, such as colour or model data.
+                </p>
+                <p>
+                    2. This object is bound to some target, such as the output window.
+                </p>
+                <p>
+                    3. The target is manipulated in some way, such as having a draw command be sent. These commands use the data currently bound to the window.
+                </p>
+                <p>
+                    4. The object is unbound from the target, allowing the process to berepeated for different sets of data.
+                </p>
+                <p>
+                    The settings are maintain when unbinding and rebinding the same object, allowing us to quickly and easily draw multiple objects!
+                </p>
 
-        <h1 id="section5">Section 5: Conclusion</h1>
-        <p>Content for the conclusion section...</p>
+                <h2 id="section4">GLFW</h2>
+                <p>
+                    GLFW is a library written in C that allows us to work with OpenGL to render objects to the screen. GLFW lets us create OpenGL contexts, 
+                    handle user input, and define window parameters.
+                </p>
+
+                <h2 id="section5">GLAD</h2>
+                <p>
+                    Since OpenGL is a specification that can be implemented differently by different developers, the drivers that contain these functions 
+                    may be stored in different places on the computer. Accessing these can alos be specific to the OS. This is where GLAD comes in!
+
+                </p>
+                <p>
+                    GLAD is a library that manages this, allowing us to declare the version of OpenGL we are using and have GLAD get the relevant
+                    functions for us!
+                </p>
+
+            </div>
+
+        <h1 id="section6">Getting Started</h1>
+
+        <div id="sub">
+            <h2 id="section7">First Window</h2>
+            <p>The first task is to create a window!</p>
+            <p>
+                First (after making sure to include our relevant header files), we need to initalize our GLFW:
+            </p>
+            <pre><code class="language-cpp">
+int main()
+{
+    // init and config glfw
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    return 0;
+}
+                                            </code></pre>
+            
+                                            <p>
+                                                We are essentially just letting GLFW know what version and setup of OpenGL we are planning on using. 
+                                                Next, we have a few more tasks to do. We initialze GLAD, create our window object,
+                                                 and ensure that the size of the window is responsive.
+                                            </p>
+                                            <pre><code class="language-cpp">
+// create glfw window
+GLFWwindow *window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+
+if (window == NULL)
+{
+	std::cout << "Failed to create GLFW window" << std::endl;
+	glfwTerminate();
+	return -1;
+}
+
+glfwMakeContextCurrent(window);
+glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 
+// load OpenGL functions pointers with glad
+if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+{
+	std::cout << "Failed to initialize GLAD" << std::endl;
+	return -1;
+}
+</code></pre>
+<pre><code class="language-cpp">
+    void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+    {
+        glViewport(0, 0, width, height);
+    }
+    
+    void processInput(GLFWwindow* window)
+    {
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(window, true);
+    }
+</code></pre>
+<p>
+    Initalizing the window is pretty self-explanatory: we create a window based on screen size, and return an error if it fails. We then set this window to be 
+    our current context. We then create a function that sets the window size, and register it is a callback function to be repeated to ensure the window size responds to the 
+    user resizing the window. Lastly, we initalize GLAD.
+</p>
+<p>
+    Now the code creates a window, finishes running, and immediately closes the window. However, we want the window to remain open 
+    as long as the program is open. This is where the render loop comes in:
+</p>
+<pre><code class="language-cpp">
+// render loop
+while(!glfwWindowShouldClose(window))
+    {
+    // check input
+    processInput(window);
 
+    //fun!
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // check for events, swap the buffer
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+    }
+
+//terminate 
+glfwTerminate();
+return 0;
+
+</code></pre>
+        <p>
+            This while loop keeps running as long as the program remains open, meaning that our window will stay on screen! A few things happen in this loop:
+        </p>
+
+        <p>
+            1. We check for any user key inputs to close the screen, using the processInput command we created earlier.
+        </p>
+        <p>
+            2. We fill the screen with some colour.
+        </p>
+        <p>
+            3. We swap the buffer and check for events. 
+        </p>
+        <p>
+            What does "swap the buffer" mean? When drawing things to the screen, a computer does it pixel by pixel, starting from the top right.
+             However, each pixel takes time! You can imagine that on large screenss, you would be able to see the line progress across the screen as chunks of the 
+            image update, making any movement very choppy. To work around this, graphics systems uses 2 buffers/screens! Essentially, one screen is in 
+            view while the other is in the background and not visible. This way, the data for the background screen can be updated, then swapped with the front screen
+            after it is all done,
+            showing the new frame all at once! this process keeps repeating, allowing the end user to see smooth transitions.
+        </p>
+        <p>
+            Once we have this implemented, we get this:
+        </p>
+        <div class = "images">
+            <img src="assets/OpenGL/Screenshot 2025-01-10 120904.png" alt="Screen" class="rounded-image">
+        </div>
+        <p>
+            Not much, but now we have a solid background!
+        </p>
+
+            <h2 id="section5">First Triangle</h2>
+            <p>Lets begin by talking about the graphics pipeline. OpenGL works with 3D models and data, but we want to show them on a 2D screen.
+                 This is done by runnign data through a series sof programs, called shaders. The system comes with default shaders, 
+                 and addition shaders can be created and used by the user to get different effects. When creating a OpenGL program, 
+                 we must decalre our own vertex and fragment shaders, as there aren't default shaders for these.
+            </p>
+            <p>Here is a great visualization of how the graphics pipeline works from the text:</p>
+            <div class = "images">
+                <img src="assets/OpenGL/shaders.png" alt="Shaders" class="rounded-image">
+            </div>
+
+
+            <p>The vertex shader is the first shader data goes through. This takes in a single vertex as an input, and transforms it into a different 3D vertex. 
+                This lets us begin processing our vertices.
+           </p>
+           <p>Next, a primitive assembly shader links the vertices from the vertex shader into a primitve shape, like a triangle.</p>
+           <p>After, a geometry shader creates new vertices on the existing shapes to break them into smaller shapes.</p>
+           <p>After that, the rasterization stage takes the 3D shapes, and maps them to pixels on the 2D screen.</p>
+           <p>The fragment shader then sets the colour of each pixel.</p>
+           <p>Finally the Alpha and Blending stage blends colours from different shapes together, as well as a few other functions sto make sure the results looks correct.</p>
+
+           <pre><code class="language-cpp">
+            const char *vertexShaderSource = "#version 330 core\n"
+            "layout (location = 0) in vec3 aPos;\n"
+            "void main()\n"
+            "{\n"
+            "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+            "}\0";
+            
+            const char *fragmentShaderSource = "#version 330 core\n"
+            "out vec4 FragColor;\n"
+            "void main()\n"
+            "{\n"
+            "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+            "}\0";
+            </code></pre>
+
+            <p> We will discuss how exactly creating these shaders works later! (Once I work through that section!) 
+                Once shaders are created, we can initalize and link them in our code to a shader program in order to use them.</p>
+                <pre><code class="language-cpp">
+                    
+// Create and Link Shaders
+unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+glCompileShader(vertexShader);
+
+//check for compile errors
+int success;
+char infoLog[512];
+glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+if (!success)
+{
+	glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+	std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+}
+
+unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+glCompileShader(fragmentShader);
+
+//check for errors
+glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+if (!success)
+{
+	glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+	std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+}
+
+unsigned int shaderProgram = glCreateProgram();
+
+glAttachShader(shaderProgram, vertexShader);
+glAttachShader(shaderProgram, fragmentShader);
+glLinkProgram(shaderProgram);
+
+//check linking errors
+glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+if (!success) {
+	glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+	std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+}
+
+glDeleteShader(vertexShader);
+glDeleteShader(fragmentShader);
+                    </code></pre>
+
+                    <p> Once the shaders are loaded into our shaderProgram, we can delete them to save memory.</p>
+                    <p> Now we can talk about VBOs and VAOs, or Vertex Buffer Objects and Vertex Array Objects. These are some of the OpenGL objects mentioned previously, and the workflow
+                        fits the general workflow described earlier! 
+                    </p>
+                    <p>We can think of a VBO as an object that stores vertex data. Binding this to a target
+                        allows us to use the data in the VBO when rendering. However, when we have tons of different object bounds, it can be
+                        a pain to unbind a rebind every different object. </p>
+                    <p>
+                        This is where the VAO comes in! This is another OpenGL object, but instead of storing data,
+                        you can think of it as storing the current state of the program! So if you have object 1 and 2 bound to your target, and you bind a VAO
+                        to it as well, the VAO will store object 1 and 2! This means you can unbind the VAO, work with other objects, and rebind the VAO to go back 
+                        to the earlier state easily.
+                    </p>
+                    <pre><code class="language-cpp">
+                    
+                        //triangle
+                        float vertices[] = {
+                            -0.5f, -0.5f,  0.0f, //left
+                             0.5f, -0.5f,  0.0f, //right
+                             0.0f,  0.5f,  0.0f // top
+                        };
+                    
+                        // set up Vertex Array Object and bind
+                        unsigned int VAO;
+                        glGenVertexArrays(1, &VAO);
+                        glBindVertexArray(VAO);
+                        
+                        //Set up Vertex Buffer Object and bind
+                        unsigned int VBO;
+                        glGenBuffers(1, &VBO);
+                        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+                        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+                    
+                        // Tell OpenGl how to read the data inside the VBO 
+                        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+                        glEnableVertexAttribArray(0);
+                    
+                        //Call to glVertexAttribPointer registers VBO as bound, so we now unbind
+                        glBindBuffer(GL_ARRAY_BUFFER, 0);
+                    
+                        //Unbind the VAO so other VAO calls won't modify this VAO, but not needed
+                        glBindVertexArray(0);
+                    
+                        // Since the VAO was bound while binding the VBO, VAO stores the data from VBO
+
+                        // Render Loop
+                        while (!glfwWindowShouldClose(window))
+                        {
+                            //input
+                            processInput(window);
+                    
+                            // rendering commands
+                            glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+                            glClear(GL_COLOR_BUFFER_BIT);
+                            
+                            //Draw Triangle
+                            glUseProgram(shaderProgram);
+                            glBindVertexArray(VAO);
+                    
+                            //to draw from VAO
+                            glDrawArrays(GL_TRIANGLES, 0, 3);
+                    
+                    
+                            // check and call events and swap buffers
+                            glfwSwapBuffers(window);
+                            glfwPollEvents();
+                        }
+                        // Save memory
+                        glDeleteVertexArrays(1, &VAO);
+                        glDeleteBuffers(1, &VBO);
+                        glDeleteProgram(shaderProgram);
+                    
+                        // terminate
+                    
+                        glfwTerminate();
+                        return 0;
+                    
+                                            </code></pre>
+        <p>
+            Doing this gives us our beautiful triangle:
+        </p>
+        <div class = "images">
+            <img src="assets/OpenGL/triangle.png" alt="Triangle" class="rounded-image">
+        </div>
+
+        <p>Lastly, lets talk about one more object, called EBOs or Element Buffer Objects. These are similar to VBOs, with one difference. 
+            EBOs store vertex data, just like VBOs, but they also store instructions on the order to connect the vertices! For example, let's say
+        I wanted to draw a rectangle using two triangles. With VBOs, we need data for each vertices for each triangle, like so:</p>
+
+        
+        <pre><code class="language-cpp">
+            float vertices[] = {
+                // first triangle
+                0.5f, 0.5f, 0.0f, // top right
+                0.5f, -0.5f, 0.0f, // bottom right
+                -0.5f, 0.5f, 0.0f, // top left
+                // second triangle
+                0.5f, -0.5f, 0.0f, // bottom right
+                -0.5f, -0.5f, 0.0f, // bottom left
+                -0.5f, 0.5f, 0.0f // top left
+                };
+            </code></pre>
+            <p> However, with an EBO, we only need to store the 4 vertices of the rectangle, as well as an array connecting them, like so!</p>
+            <pre><code class="language-cpp">
+                float vertices[] = {
+                    0.5f, 0.5f, 0.0f, // top right
+                    0.5f, -0.5f, 0.0f, // bottom right
+                    -0.5f, -0.5f, 0.0f, // bottom left
+                    -0.5f, 0.5f, 0.0f // top left
+                    };
+                    unsigned int indices[] = { // note that we start from 0!
+                    0, 1, 3, // first triangle
+                    1, 2, 3 // second triangle
+                    };
+                </code></pre>
+                <p> This will give us this! (The left rectangle is the result of the code, the right outlined one is an example of how its actually drawn from the book!)</p>
+                <div class = "images">
+                    <img src="assets/OpenGL/rect.png" alt="rect" class="rounded-image">
+                </div>
+
+                <P>
+                    Lastly, I tried my hand at the various exercises that the book gave:
+                </P>
+
+                <p>Exercise 1 and 2 asked us to draw two triangles next to each other, with Exercise 1 wanting it done using VBOs, 
+                    and Exercise 2 wanting it done with EBOs.</p>
+                    <p>
+                        Let's tackle Exercise 2 first. This was pretty simple, and was just a matter of changing the input data in the code used for the rectangle.
+                    </p>
+                    <pre><code class="language-cpp">
+                        //2 triangles
+                        float vertices[] = {
+                            //triangle 1
+                            0.5f,  0.5f, 0.0f, // top right
+                            0.5f, -0.5f, 0.0f, // bottom right
+                            -0.4f,  0.5f, 0.0f, // top left of triangle 1
+
+                            //Triangle 2
+                            -0.5f, -0.5f, 0.0f, // bottom left
+                            -0.5f,  0.5f, 0.0f, // top left
+                            0.4f, -0.5f, 0.0f
+
+                        };
+                        unsigned int indices[] = { // note that we start from 0!
+                            0, 1, 2, // first triangle
+                            3,4,5 // second triangle
+                        };
+                        </code></pre>
+                        <p>
+                            This worked well, and gave us the following!
+                        </p>
+                        <div class = "images">
+                            <img src="assets/OpenGL/2tris.png" alt="2 tri" class="rounded-image">
+                        </div>
+                        <p>
+                            Exercise 2 was a little more difficult, and involved creating 2 data sets with 2 different VBOs:
+                        </p>
+                        <pre><code class="language-cpp">
+                            //triangle
+                            float triangle1[] = {
+                                -0.5f, -0.5f,  0.0f, //left
+                                0.4f, -0.5f,  0.0f, //right
+                                -0.5f,  0.5f,  0.0f // top
+                            };
+
+                            float triangle2[] = {
+                                0.5f,  0.5f,  0.0f, //right top
+                                0.5f, -0.5f,  0.0f, //right
+                                -0.4f,  0.5f,  0.0f // top
+                            };
+
+                            // set up Vertex Array Object and bind
+                            unsigned int VAOs[2], VBOs[2];
+                            glGenVertexArrays(2, VAOs);
+                            glGenBuffers(2, VBOs);
+
+                            //setup triangle 1
+                            glBindVertexArray(VAOs[0]);
+                            glBindBuffer(GL_ARRAY_BUFFER, VBOs[0]);
+                            glBufferData(GL_ARRAY_BUFFER, sizeof(triangle1), triangle1, GL_STATIC_DRAW);
+                            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+                            glEnableVertexAttribArray(0);
+                            glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+                            //setup triangle 2
+                            glBindVertexArray(VAOs[1]);
+                            glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);
+                            glBufferData(GL_ARRAY_BUFFER, sizeof(triangle2), triangle2, GL_STATIC_DRAW);
+                            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+                            glEnableVertexAttribArray(0);
+                            glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+                            // Render Loop
+                            while (!glfwWindowShouldClose(window))
+                            {
+                                //input
+                                processInput(window);
+
+                                // rendering commands
+                                glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+                                glClear(GL_COLOR_BUFFER_BIT);
+
+                                //Draw Triangle
+                                glUseProgram(shaderProgram);
+
+                                glBindVertexArray(VAOs[0]);
+                                glDrawArrays(GL_TRIANGLES, 0, 3);
+
+                                glBindVertexArray(VAOs[1]);
+                                glDrawArrays(GL_TRIANGLES, 0, 3);
+
+                                // check and call events and swap buffers
+                                glfwSwapBuffers(window);
+                                glfwPollEvents();
+                            }
+                            </code></pre>
+                            <p>Once we have both VBOs and corresponding VAOs set, we bind one, draw, then bind the other and draw. This gives us what we want!</p>
+                            <div class = "images">
+                                <img src="assets/OpenGL/Ex12tris.png" alt="2 tri" class="rounded-image">
+                            </div>
+
+                            <p>
+                                The last exercise asks us to create another fragment shader in order to change the colour of one of the triangles!
+                            </p>
+                            <pre><code class="language-cpp">
+                                const char* fragmentShaderSource2 = "#version 330 core\n"
+                                "out vec4 FragColor;\n"
+                                "void main()\n"
+                                "{\n"
+                                "   FragColor = vec4(0.3f, 0.5f, 0.2f, 1.0f);\n"
+                                "}\0";
+                                </code></pre>
+                                <p>
+                                    First, I created a new shader. Now the code is fairly straightforward! WE setup the the new shader in the same was at the others,
+                                    and create a second shaderProgram that has this shader instead. Then, when we draw the triangles, we make sure to swap the shaderProgram
+                                    after we draw the first one!
+                                </p>
+                                <pre><code class="language-cpp">
+                                    unsigned int fragmentShader2 = glCreateShader(GL_FRAGMENT_SHADER);
+                                    glShaderSource(fragmentShader2, 1, &fragmentShaderSource2, NULL);
+                                    glCompileShader(fragmentShader2);
+                                    
+                                    //check for errors
+                                    glGetShaderiv(fragmentShader2, GL_COMPILE_STATUS, &success);
+                                    if (!success)
+                                    {
+                                        glGetShaderInfoLog(fragmentShader2, 512, NULL, infoLog);
+                                        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+                                    }
+                                    
+                                    unsigned int shaderProgram = glCreateProgram();
+                                    
+                                    glAttachShader(shaderProgram, vertexShader);
+                                    glAttachShader(shaderProgram, fragmentShader);
+                                    glLinkProgram(shaderProgram);
+                                    
+                                    unsigned int shaderProgram2 = glCreateProgram();
+                                    
+                                    glAttachShader(shaderProgram2, vertexShader);
+                                    glAttachShader(shaderProgram2, fragmentShader2);
+                                    glLinkProgram(shaderProgram2);
+                                    
+                                    //check linking errors
+                                    glGetProgramiv(shaderProgram2, GL_LINK_STATUS, &success);
+                                    if (!success) {
+                                        glGetProgramInfoLog(shaderProgram2, 512, NULL, infoLog);
+                                        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+                                    }
+                                    
+                                    glDeleteShader(vertexShader);
+                                    glDeleteShader(fragmentShader);
+                                    glDeleteShader(fragmentShader2);
+                                    
+                                    //  Vertex Data
+                                    
+                                    //triangle
+                                    float triangle1[] = {
+                                        -0.5f, -0.5f,  0.0f, //left
+                                         0.4f, -0.5f,  0.0f, //right
+                                        -0.5f,  0.5f,  0.0f // top
+                                    };
+                                    
+                                    float triangle2[] = {
+                                         0.5f,  0.5f,  0.0f, //right top
+                                         0.5f, -0.5f,  0.0f, //right
+                                         -0.4f,  0.5f,  0.0f // top
+                                    };
+                                    
+                                    // set up Vertex Array Object and bind
+                                    unsigned int VAOs[2], VBOs[2];
+                                    glGenVertexArrays(2, VAOs);
+                                    glGenBuffers(2, VBOs);
+                                    
+                                    //setup triangle 1
+                                    glBindVertexArray(VAOs[0]);
+                                    glBindBuffer(GL_ARRAY_BUFFER, VBOs[0]);
+                                    glBufferData(GL_ARRAY_BUFFER, sizeof(triangle1), triangle1, GL_STATIC_DRAW);
+                                    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+                                    glEnableVertexAttribArray(0);
+                                    glBindBuffer(GL_ARRAY_BUFFER, 0);
+                                    
+                                    //setup triangle 2
+                                    glBindVertexArray(VAOs[1]);
+                                    glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);
+                                    glBufferData(GL_ARRAY_BUFFER, sizeof(triangle2), triangle2, GL_STATIC_DRAW);
+                                    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+                                    glEnableVertexAttribArray(0);
+                                    glBindBuffer(GL_ARRAY_BUFFER, 0);
+                                    
+                                    // Render Loop
+                                    while (!glfwWindowShouldClose(window))
+                                    {
+                                        //input
+                                        processInput(window);
+                                    
+                                        // rendering commands
+                                        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+                                        glClear(GL_COLOR_BUFFER_BIT);
+                                    
+                                        //Draw Triangle
+                                        glUseProgram(shaderProgram);
+                                    
+                                        glBindVertexArray(VAOs[0]);
+                                        glDrawArrays(GL_TRIANGLES, 0, 3);
+                                    
+                                        glUseProgram(shaderProgram2);
+                                    
+                                        glBindVertexArray(VAOs[1]);
+                                        glDrawArrays(GL_TRIANGLES, 0, 3);
+                                    
+                                        // check and call events and swap buffers
+                                        glfwSwapBuffers(window);
+                                        glfwPollEvents();
+                                    }
+                                    </code></pre>
+                                    <p> This gives us this beautiful result:</p>
+                                    <div class = "images">
+                                        <img src="assets/OpenGL/ex3.png" alt="ex 3" class="rounded-image">
+                                    </div>
+                                    <p> I will continue to work on this project and update this page in the long term, so please keep an eye out!</p>
+            </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </body>
 </html>
