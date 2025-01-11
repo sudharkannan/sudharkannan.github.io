@@ -40,9 +40,9 @@
     <div id="report">
         <div id = "summary">
             <h1 id="section1">Summary</h1>
-            <p>I am working through the "Learn OpenGL" text by Joey de Vries in order to gain an understand for the fundamentals of graphics programming!
-                The end result will be a simple 2D game of breakout, but the skills gained throuh this project will likely allow me to
-                create and understands more graphics-related projects in the future! (Despite the WIP nature, this might be one of the longest pages 
+            <p>I am working through the "Learn OpenGL" text by Joey de Vries in order to gain an understanding for the fundamentals of graphics programming!
+                The end result will be a simple 2D game of breakout, but the skills gained through this project will likely allow me to
+                create and understand more graphics-related projects in the future! (Despite the WIP nature, this might be one of the longest pages 
                 on the portfolio already!)
             </p>
             <div class = "images">
@@ -74,7 +74,7 @@
                     4. The object is unbound from the target, allowing the process to berepeated for different sets of data.
                 </p>
                 <p>
-                    The settings are maintain when unbinding and rebinding the same object, allowing us to quickly and easily draw multiple objects!
+                    The settings are maintained when unbinding and rebinding the same object, allowing us to quickly and easily draw multiple objects!
                 </p>
 
                 <h2 id="section4">GLFW</h2>
@@ -86,7 +86,7 @@
                 <h2 id="section5">GLAD</h2>
                 <p>
                     Since OpenGL is a specification that can be implemented differently by different developers, the drivers that contain these functions 
-                    may be stored in different places on the computer. Accessing these can alos be specific to the OS. This is where GLAD comes in!
+                    may be stored in different places on the computer. Accessing these can also be specific to the OS. This is where GLAD comes in!
 
                 </p>
                 <p>
@@ -218,8 +218,8 @@ return 0;
 
             <h2 id="section5">First Triangle</h2>
             <p>Lets begin by talking about the graphics pipeline. OpenGL works with 3D models and data, but we want to show them on a 2D screen.
-                 This is done by runnign data through a series sof programs, called shaders. The system comes with default shaders, 
-                 and addition shaders can be created and used by the user to get different effects. When creating a OpenGL program, 
+                 This is done by running data through a series of programs, called shaders. The system comes with default shaders, 
+                 and additional shaders can be created and used by the user to get different effects. When creating a OpenGL program, 
                  we must decalre our own vertex and fragment shaders, as there aren't default shaders for these.
             </p>
             <p>Here is a great visualization of how the graphics pipeline works from the text:</p>
@@ -235,7 +235,7 @@ return 0;
            <p>After, a geometry shader creates new vertices on the existing shapes to break them into smaller shapes.</p>
            <p>After that, the rasterization stage takes the 3D shapes, and maps them to pixels on the 2D screen.</p>
            <p>The fragment shader then sets the colour of each pixel.</p>
-           <p>Finally the Alpha and Blending stage blends colours from different shapes together, as well as a few other functions sto make sure the results looks correct.</p>
+           <p>Finally the Alpha and Blending stage blends colours from different shapes together, as well as a few other functions to make sure the results looks correct.</p>
 
            <pre><code class="language-cpp">
             const char *vertexShaderSource = "#version 330 core\n"
@@ -306,12 +306,12 @@ glDeleteShader(fragmentShader);
                         fits the general workflow described earlier! 
                     </p>
                     <p>We can think of a VBO as an object that stores vertex data. Binding this to a target
-                        allows us to use the data in the VBO when rendering. However, when we have tons of different object bounds, it can be
-                        a pain to unbind a rebind every different object. </p>
+                        allows us to use the data in the VBO when rendering. However, when we have tons of different objects to work with, it can be
+                        a pain to unbind and rebind every different object. </p>
                     <p>
                         This is where the VAO comes in! This is another OpenGL object, but instead of storing data,
-                        you can think of it as storing the current state of the program! So if you have object 1 and 2 bound to your target, and you bind a VAO
-                        to it as well, the VAO will store object 1 and 2! This means you can unbind the VAO, work with other objects, and rebind the VAO to go back 
+                        you can think of it as storing the current state of the program! So if you have Object 1 and 2 bound to your target, and you bind a VAO
+                        to it as well, the VAO will store Object 1 and 2! This means you can unbind the VAO, work with other objects, and rebind the VAO to go back 
                         to the earlier state easily.
                     </p>
                     <pre><code class="language-cpp">
