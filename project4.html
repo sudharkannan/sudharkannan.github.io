@@ -28,29 +28,180 @@
         <h2 class="toc-title">Contents</h2>
         <ul>
             <li><a href="#section1">Summary</a></li>
-            <li><a href="#section2">Background</a></li>
-            <li><a href="#section3">Methodology</a></li>
-            <li><a href="#section4">Results</a></li>
-            <li><a href="#section5">Conclusion</a></li>
+            <li><a href="#section2">Circuit</a></li>
+            <li><ul><a href="#section3">    Latch+Reset</a></ul></li>
+            <li><ul><a href="#section4">    Counter+Latch</a></ul></li>
+            <li><ul><a href="#section5">    Amp+Buffer</a></ul></li>
+            <li><a href="#section6">Results</a></li>
         </ul>
     </div>
 
     <div id="report">
         <div id = "summary">
             <h1 id="section1">Summary</h1>
-            <p>Content for the introduction section...</p>
+            <p>I created a Motor Control circuit that measures the RPM of a motor and tunes the voltage in order to ensure the motor works at a set RPM!</p>
+            <div class = "images">
+                <img src="assets/servo/physcirc.png" alt="Circuit" class="rounded-image">
+            </div>
         </div>
-        <h1 id="section2">Section 2: Background</h1>
-        <p>Content for the background section...</p>
+        <h1 id="section2">Circuit</h1>
+        <p>While the circuit itself ended up being relatively straightforward to build, the process of building it and exploring each section of the circuit was an
+            incredibly valuable experience, gibing me a lot of insight into circuit design, as well as the physcial processes of buiklding, testing, and debugging.
+            The overall concept of the circuit is as follows:
+        </p>
+        <p>
+            A motor is attached to a disc with 10 slits at regular intervals. These slits provide a way for an LED to shine on a phototransistor, giving bursts of
+            power at a frequency dependant of the speed of the motor and serving as our clock pulse (CLK). We also have a separate section of the cirtcuit that creates another
+            pulse signl at regular intervals, which will be used to create periodic RESET and LATCH signals. Using the CLK and RESET signals on a counter ship, we can count
+            the number of CLK pulses per reset pulse, which gets saved to a d-latch. The signals from this latch are fed to a 7-seg display, giving as a visual to understand
+            how fast the motor is spinning, and also fed in to a DAC to give us our electrical speed measurement signal.
+        </p>
+        <p>
+            This signal is compared with a reference signal that can be manually adjusted with a potentiometer, the output of which gives us our error signal.
+            This signal is then applied to a transistor to control the current to the motor.
+        </p>
+        <p>
+            We can go more into depth on each section:
+        </p>
+        <div id = "sub">
+            <h2 id="section3"> Latch+Reset</h2>
+            <div class = "images">
+                <img src="assets/servo/part1.png" alt="Circuit" class="rounded-image">
+            </div>
+            <p>This section starts off with our "Measuring Period" Generator, which consists of a Schmitt-Trigger inverter
+                in an RC circuit. 
+            </p>
+            <p>
+                At a low input, the inverter returns a
+high value, but at a high input, the inverter returns a low. Since the inverter originally has no input (capacitor
+is uncharged), it will return a high. However, this circuit contains a feedback loop, so the high output is fed
+back into the input, charging the capacitor, which now provides an input, and switching the output to a low until
+the capacitor fully discharges. This cycle repeats, creating a steady period as the overall output with frequency
+determined by the values of the resistor and capacitor. This output is then used for the rest of the circuit.
+            </p>
+            <div class = "images">
+                <img src="assets/servo/sti circ.png" alt="Circuit" class="rounded-image">
+            </div>
+            <p>
+                The blue is the output of the S=inverter, and the yellow is the input from feedback.
+            </p>
+            <p> 
+                In order to ensure our wave is square and help reduce the impact of noise, we use a Schmitt-Trigger inverter with hysteresis,
+                meaning the thresholds for flipping from high to low and low to high are different.
+                These circuits are good at resisting noise and at squaring up waves with long rise and fall times. The noise
+                reduction is due to the changing of the neccessary input voltage. If this wasn't there, you could imagine that the
+                noise present at the turning voltage could cause the output to oscillate rapidly between a 0 and a 1. But with
+                hysteresis, the voltage requirement is different enough that once the trigger flips, it requires an significant
+                change in the input before it will flip again, resisting the small fluctuations caused by noise. The circuit is also
+                good at squaring up waves with large rise and fall times, as the hysteresis helps remove any fluctuations that
+                may happen due to the voltage being near the turning point for a longer length of time.
+            </p>
+            <p>
+                This measuring period output is fed through another inverter to help reduce noise, and then serves as our LATCH pulse to continously update 
+                our D-Latch
+            </p>
+            <p>
+                The measuring period output is also run thorugh a small RC circuit, adding a short delay before being squared up again by another inverter as we want
+                our counter to reset <em>after</em> the value has been stored in the latch.
+                This output of this is then run through a high-pass filter with a very small time constant. This change our square wave to be very thin, giving a 
+                very short pulse instead of long pulses. This is desirable as we want our RESET pulse to be registered once,
+                 instead of having it be registered multiple times as the wave continues to give a high. This is then run through 2 inverters in order to square it up and ensure
+                 it is in the same phase as before.
 
-        <h1 id="section3">Section 3: Methodology</h1>
-        <p>Content for the methodology section...</p>
+            </p>
+            <div class = "images">
+                <img src="assets/servo/reset.png" alt="Circuit" class="rounded-image">
+            </div>
+            <p>Blue is our RESET, yellow is our LATCH!</p>
 
-        <h1 id="section4">Section 4: Results</h1>
-        <p>Content for the results section...</p>
+            <h2 id="section4">Counter+Latch</h2>
+            <div class = "images">
+                <img src="assets/servo/dac.png" alt="Circuit" class="rounded-image">
+            </div>
+            <p>
+                The counter works by having two 16 bit counters connected to each other, with their outputs wired into a seven
+segment display. This allows the display to count from 0-255, in hexadecimal, with a total of 256 possible states.
+Once this value is exceeded, the counter goes back to 0. This counter is clocked by the phototransitor pulse
+from the motor, and reset by the pulse generator. This means that the counter will count the clocks pulses
+emitted by the motor until it gets reset back to 0.
+            </p>
+            <p>
+                The D-Latch will save the count of the counter whenever it recieves the latch signal from the pulse generator,
+and the output of the latch will be displayed on the display. Since the counter is reset very slightly after the
+d-latch is triggered, the d-latch will store the amount of clock pulses that happened during the last reset cycle,
+which is proportional to the speed of the spinning motor.
+            </p>
+            <p>
+                The value stored in the latch is converted to an analog voltage through the DAC, which is made up of a R2R ladder! This voltage is dependant
+on the number that is displayed, and increases as the number increases, thus increasing as the speed of the motor increases and more CLK pulses are measured.
+ This analog voltage is then passed
+through an op-amp buffer, insulating the circuit from any affects of applied loads, then sent to the rest of the
+circuit.
 
-        <h1 id="section5">Section 5: Conclusion</h1>
-        <p>Content for the conclusion section...</p>
+            </p>
+            <div class = "images">
+                <img src="assets/servo/phys circuit dac.png" alt="Circuit" class="rounded-image">
+            </div>
+            <h2 id="section5">Amp+Buffer</h2>
+            <div class = "images">
+                <img src="assets/servo/part4.png" alt="Circuit" class="rounded-image">
+            </div>
+            <p>The Error Signal Amplifier serves as a comparator, testing whether the input speed measurement from the DAC
+                is higher or lower than the setpoint provided. The setpoint consists of a simple voltage divider, and does not
+                change over time (not counting manual tweaks), meaning the + terminal always has the same value. </p>
+                <p>
+                    When
+                    the speed measurement goes into the - terminal, the Op Amp reads the voltage input. Op Amps will produce an
+                    output to try and make both inputs equal, so if the speed measurement is lower than the set point, the Op
+                    Amp will output a high voltage that feeds back into the input terminal, raising it, and supplying a larger voltage
+                    to the rest of the circuit. On the other hand, if the speed measurement is higher than the set point, the Op Amp
+                    will produce a negative voltage in order to lower the input, thus supplying a negative voltage to the rest of the
+                    circuit. Since the speed measurement is the current speed of the motor, if the motor is spinning too fast the op
+                    amp will produce a smaller voltage to slow it down, and if the motor is too slow the opamp will produce a higher
+                    voltage to speed it up.
+                </p>
+                <p>
+                    Manually changing the potentiometer serves to change the setpoint voltage, increasing/decreasing the point the
+input speed is compared to. This is how changing the pot allows you to change the motors speed.
+                </p>
+                <div class = "images">
+                    <img src="assets/servo/errsig.png" alt="Circuit" class="rounded-image">
+                </div>
+                <p>
+                    The blue is our output, and the yellow is a test input wave from a function generator!
+                </p>
+                <p>
+                    Next, the error signal is run through the protecting buffer. The protecting buffer serves as insulation for the rest of the circuit, restricting outputs to be between 5V and
+                    0V. The two diodes connecting the the output of the error amplifier serve to restrict the possible voltage carried
+                    forward. The diode that connects to the 5V rail allows current to drain out of the wire but not into it from the
+                    power rail, meaning that current will drain out if the wire is higher than 5 volts. The other diode does something
+                    very similar, allowing current to flow into the wire from ground, but not allowing power to drain out. This means
+                    that if the voltage is negative, current will flow into the circuit, increasing the voltage to 0. Otherwise, the circuit
+                    is not affected. Now that this signal is forced between 5V and 0V, it feeds into an opamp with feedback as a
+                    buffer, ensuring that the circuit is not affected by the load of the motor.
+                </p>
+                <div class = "images">
+                    <img src="assets/servo/buffer.png" alt="Circuit" class="rounded-image">
+                </div>
+                <p>
+                    The result is finally connected to a power transistor. The motor itself is connected to the 15V rail, with the other end connected to the BJT output. Therefore, the
+                    lower the BJT output, the higher the voltage difference is, the more power the motor gets, and the faster the
+                    motor willl spin. The diode on the motor ensures that any BJT output above 15V is drained away. This diode serves to protect
+                    the circuit from any voltage spikes that may occur when the BJT is initially powered/turned off.
+                    The BJT allows the current from the buffer to pass through, amplifying the small current from the circuit into the
+                    large current needed to drive the motor.
+                </p>
+            
+        </div>
+        <h1 id="section6">Results</h1>
+        <p>
+            Overall, this project was a great way to combine the knowledge and techniques we've learned in our courses up to this point
+into one project, as well as a good opportunity to get experience troubleshooting and working on something large
+and complicated!
+
+        </p>
+
+         
 
 
 
