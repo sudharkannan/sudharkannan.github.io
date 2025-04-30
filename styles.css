@@ -61,7 +61,7 @@ header h1 a:hover {
 .card-color-3::after { background-color: rgba(144, 238, 144, 0.3); }
 .card-color-4::after { background-color: rgba(255, 165, 0, 0.3); }
 .card-color-5::after { background-color: rgba(221, 160, 221, 0.3); }
-.card-color-6::after { background-color: rgba(221, 51, 153, 0.3); }
+.card-color-6::after { background-color: rgba(238, 255, 0, 0.3); }
 .certs::after { background-color: rgb(255, 255, 255); }
 
 .page1 h1 {
@@ -90,7 +90,7 @@ header h1 a:hover {
 }
 .page6 h1 {
     padding-left: 20px;
-    border-left: 4px solid  rgba(221, 51, 153, 0.3);
+    border-left: 4px solid  rgba(238, 255, 0, 0.3);
 }
 
 .certs h1 {
