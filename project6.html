@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudharshan Kannan | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J848930EME"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-J848930EME');
+    </script>
+</head>
+<header>
+    <h1><a href="index.html#home">&nbsp;Sudharshan Kannan 🔜 🤖</a></h1>
+    <nav>
+        <a href="projects.html">Projects</a> <!-- Replace 'your-link-here.html' with the actual page you want to link to -->
+        <a href="Sudhar_K_Resume.pdf">Resume</a> <!-- Replace 'your-link-here.html' with the actual page you want to link to -->
+        <a href="index.html#about-me">About Me</a> <!-- Replace 'your-link-here.html' with the actual page you want to link to -->
+    </nav>
+</header>
+<body>
+    <div class = "title">
+        <div class = "page6">
+            <h1>Surgery Simulation Sandbox (2024 - 2025)</h1>
+        </div>
+        <h4><em><b>A surgery simulator that combines VR and Haptic feedback to create an immersive training simulator for surgeons</b></em></h4>
+        <h2>Unity - C# - Haptics - VR Development - iMSTK</h2>
+    </div>
+
+    <div id="table-of-contents">
+        <h2 class="toc-title">Contents</h2>
+        <ul>
+            <li><a href="#section1">Summary</a></li>
+            <li><a href="#section2">Background</a></li>
+            <li><a href="#section3">Technology</a></li>
+            <li><ul><a href="#section4">Haptics</a></ul></li>
+            <li><ul><a href="#section5">VR</a></ul></li>
+            <li><ul><a href="#section6">iMSTK</a></ul></li>
+            <li><ul><a href="#section6">Unity</a></ul></li>
+            <li><a href="#section7">Design</a></li>
+            <li><a href="#section8">Conclusion</a></li>
+        </ul>
+    </div>
+
+    <div id="report">
+        <div id = "summary">
+            <h1 id="section1">Summary</h1>
+            <p>The Digital Lab at the BC Children's Hospital sponsored this project, with a goal of creating a VR and 
+                haptic-enabled simulator capable of supporting multiple surgical scenarios and adjusting the tactile 
+                sensation of each simulated object to allow practitioners to train on specific medical cases. 
+            </p>
+            <p>
+            This gave my team and I 
+                a wonderful opportunity to work through the entire engineering process of a project, from initial research,
+                discussions with shareholders, design, and implementation, and taught us a lot both in technical skill as well as in
+                collarborating and communicating with stakeholders and sponsors.
+            </p>
+            <div class = "images">
+                <img src="assets/Capstone1/demosc.png" alt="Screenshot of our demo" class="rounded-image">
+            </div>
+        </div>
+        <h1 id="section2">Background</h1>
+        <p>
+            The use of simulation-based training models have proved to improve surgical performance and patient outcomes.
+            Nonetheless, there are still efforts to improve the immersion and realism of the experience. 
+            From our research, we found that many surgeons felt haptic feedback was inaccurate, with many thinking the virtual 
+            environment was unrealistic and difficult to navigate. Additionally, existing solutions have no functionality 
+            to support specific and rare cases such as thoracoabdominal tumor surgeries - Digital Lab’s originally proposed use case. 
+            The aim of this project is to remedy the issues present in existing simulations by utilizing VR, haptics, 
+            and an easily customizable simulation.
+        </p>
+        <p>
+            The objective is to create a VR and haptics-enabled simulation that can import custom models and adjust their 
+            haptic feedback parameters. Instead of only considering thoracoabdominal tumor surgeries as originally proposed, 
+            the project will allow for any desired scene. The haptics device should also be properly synced within the simulation 
+            such that the simulated device overlaps with the real device from the view of the VR headset. The ultimate 
+            goal is to create a virtual environment that is as realistic as possible for practitioners to train on.
+        </p>
+        <p>
+            Due to the sponsored nature of this project, I am not able to speak about the technical details of implementation, 
+            but rather give a general overview of technologies used as well as our learning journey!
+        </p>
+
+        <h1 id="section3">Technology</h1>
+            <div id="sub">
+                <h2 id="section3">Haptics</h2>
+                <p>
+                    Haptic feedback is technology that simulates forces on a user, providing immersion. A very basic
+                    example is when a controller vibraes while playing a video game! For our surgery simulator, we needed a device
+                    that could simulate the forces of a surgical tool, allowing the user to feel the organs and tissues in virtual space.
+                    We used the <a href="https://www.3dsystems.com/haptics-devices/touch">Touch Haptic Device</a> from 3D Systems,
+                    giving us a device that could simulate force feedback with 3 degrees of freedom (x,y,z)!                    
+                    We were able to interface with this device using the built-in OpenHaptics developer toolkit.
+
+                    <div class = "images">
+                        <img src="assets/Capstone1/touchdevice.png" alt="Device" class="rounded-image">
+                    </div>
+                </p>
+                <h2 id="section4">Virtual Reality</h2>
+                <p>
+                    Next comes the VR component. Here, we used the Meta Quest 2, a popular VR headset. We were able to use the MetaXR
+                    SDK for Unity to interface with the headset, allowing us to accurately track the location of the headset and the controllers.
+                    We could use the Meta Link app to easily connect our laptops to the headset, allowing us to ensure our Unity 
+                    scenes worked properly in VR.
+                </p>
+
+                <h2 id="section5">iMSTK</h2>
+                <p>
+                    iMSTK is an open-source library that provides tools for surgery simulations, serving as our 
+                    main physics engine for this project. iMSTK is what calculates the forces that are applied on the models,
+                    and sends this information to Unity.
+                </p>
+                <h2 id="section6">Unity</h2>
+                <p>
+                    Lastly, Unity is an extremely popular engine for creating games, simulations, animations, and much more.
+                    Unity served as this project's "glue", tying each component together and rendering it, and allowing us to write code
+                    to work with our systems. iMSTK, OpenHaptics,
+                    and the Meta Quest all support Unity!
+                </p>
+
+            </div>
+
+        <h1 id="section7">Design</h1>
+            <p>
+                Our project's general flow is as follows:
+            </p>
+            <div class = "images">
+                <img src="assets/Capstone1/projflow.png" alt="project flowchart" class="rounded-image">
+            </div>
+            <p>
+                Unity store all the data of our models and locations, which we process and send to iMSTK. 
+                iMSTK then calculates the forces that need to applied on the models and the haptic device,
+                and sends them to the Haptic and VR devices. iMSTK then updates the new position of the models, 
+                and sends this information back to Unity, and the cycle repeats.
+            </p>
+            <p>
+                One unique problem of the project that I would like to touch on is the syncing of the haptic device with the VR headset.
+                The haptic device is a physical object, and the VR headset is a virtual one. How do we ensure that the haptic device
+                is in the same position as the VR headset?
+            </p>
+            <p>
+                We solved this issue by using CAD modeling to design and 3D print a mount that would attach to the haptic device,
+                and hold one of the VR controllers. This rig provides a fixed offset between the controller and the haptics device. 
+                Since we are able to track the exact position of the controller via the OpenXR SDK in Unity, we are then able to apply
+                this fixed offset to calculate the position of the haptic device!
+                <div class = "images">
+                    <img src="assets/Capstone1/Rig.png" alt="haptic mount" class="rounded-image">
+                </div>
+            </p>
+            
+        <h1 id="section8">Conclusion</h1>
+        <p>
+            The current product integrates VR and haptics to deliver two demos. 
+            The first involves a room where a user can interact with a springy cube and a rigid block. 
+            The second involves a similar set up without grasping, and can import custom models and assign materials to them. 
+            The demos use cubes instead of medical models due to processing limitations.
+        </p>
+        <p>
+            The product fulfils the objectives of combining VR and haptics in a simulation, importing custom models, 
+            adjusting haptic parameters, and synching the device location to the simulation. With further development, 
+            this will allow for more realistic and customized simulated surgery scenarios.
+        </p>
+        <p>
+            I would like to thank my team Emily Xue, Yoonha Lee, and Michael Khoo for their hard work and dedication to this project! 
+            We learned a lot about the technologies involved in this project, but I believe that the real value came from 
+            working on a real-world problem involving stakeholders and sponsors. We wrote design proposals, maintained strong communication
+            with our sponsors,
+            estimated and adapted timelines, and created design reports. I believe that this experience is crucial for any engineer, and will
+            go a long way in my future career.
+        </p>
+        
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
